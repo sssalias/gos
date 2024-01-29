@@ -1,0 +1,43 @@
+.container {
+    color: white;
+    padding: 15px 20px;
+    background-color: transparent;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    justify-content:start;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    &:hover {
+        background-color: #6175B6;
+    }
+}
+.link__wrapper {
+    width: 100%;
+    color: white;
+    text-decoration: none;
+}
+.container__active {
+    background-color: #6175B6;
+}
+.icon {
+    height: 20px;
+    width: 20px;
+}
+
+.img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.move {
+    height: 20px;
+    width: 20px;
+    margin-left: auto;
+    transition: .4s;
+}
+.move__active {
+    transform: rotateX(180deg);
+    transition: .4s;
+}

@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+
+$main-blue-color: #1E3685;
+$main-text-color: #545454;
+
+* {
+  //font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
+}
+
+h4 {
+  font-size: 14px;
+}
+
+span, input, a {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+button {
+  color: white;
+  display: flex;
+  padding: 15px 25px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: $main-blue-color;
+  border: 1px solid $main-blue-color;
+  gap: 10px;
+  cursor: pointer;
+  transition: .35s ease-in-out;
+
+  //&:hover {
+  //  color: $main-blue-color;
+  //  background-color: transparent;
+  //  transition: .35s ease-in-out;
+  //}
+}
+
+.import-path {
+  fill: black;
+}
+
+input {
+  display: flex;
+  min-width: 250px;
+  padding: 15px 0;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  outline: none;
+  color: $main-text-color;
+  border-bottom: 1px solid $main-text-color;
+}
+
+.rc-table {
+  width: 100%;
+  //border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+
+  thead {
+    color: white;
+    background-color: $main-blue-color;
+  }
+  tbody {
+    transform: translate(0, 15px);
+    border-radius: 15px;
+    box-shadow: 0 0 2px 0 lightgray;
+  }
+
+
+  th {
+    &:nth-child(1) {
+      border-radius: 15px 0 0 15px;
+    }
+    &:nth-last-child(1) {
+      border-radius: 0 15px 15px 0
+    }
+  }
+  th,
+  td {
+    font-weight: normal;
+    padding: 17px 25px;
+    white-space: normal;
+    word-break: break-word;
+    text-align: left;
+    font-size: 14px;
+  }
+}
+

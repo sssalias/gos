@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useMemo, useState} from 'react';
+import {Route, Routes} from 'react-router-dom';
+import MenuAllPage from "./components/pages/Menu/All/MenuAllPage";
+import OrdersPage from "./components/pages/OrdersPage/OrdersPage";
+import CommentsPage from "./components/pages/Comments/CommentsPage";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import {ReactKeycloakProvider} from "@react-keycloak/web";
+import keycloak from "./keycloack";
+const App = () => {
+
+    keycloak.onTokenExpired = () => {
+        console.log('a!')
+        // console.log('token expired', keycloak.token);
+        // keycloak.updateToken(30).success(() => {
+        //     console.log('successfully get a new token', keycloak.token);
+        // }).error(() => {
+        //     console.log('error')
+        // });
+    }
+
+    const paths = [
+        {path: '/menu/all', element: <MenuAllPage/>},
+        {path: '/orders', element: <OrdersPage/>},
+        {path: '/comments', element: <CommentsPage/>}
+    ]
+
+    return (
+        <ReactKeycloakProvider authClient={keycloak}>
+            <div>
+                <a onClick={() => {
+                    // console.log(token)
+                    // keycloak.login()
+                    // console.log(keycloak.authenticated)
+                    console.log(keycloak.token)
+                    console.log(keycloak.refreshToken)
+                }}>afa</a>
+                <Routes>
+                    {paths.map(({path, element}) => <Route path={path} element={element} key={path}/>)}
+                </Routes>
+            </div>
+        </ReactKeycloakProvider>
+    );
+};
 
 export default App;
