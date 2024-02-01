@@ -4,42 +4,38 @@ import classes from './CategoriesList.module.css'
 import {useKeycloak} from "@react-keycloak/web";
 import axios from "axios";
 import CreateCategory from "./CreateCategory/CreateCategory";
+import CategoriesServices from "../../../../../services/CategoriesServices";
 
 const CategoriesList = (props) => {
 
-
+    const {keycloak, initialized} = useKeycloak()
     const [categories, setCategories] = useState([])
 
-    const {keycloak, initialized} = useKeycloak()
-
     const getCategories = () => {
-        axios.get('http://localhost:2002/categories', {headers: {Authorization: `Bearer ${keycloak.token}`}})
+        CategoriesServices.getCategories(keycloak.token, props.id)
             .then(res => setCategories(res.data))
             .catch(err => console.log(err))
     }
 
     const createCategory = (title) => {
-        axios.post('http://localhost:2002/categories', {title}, {headers: {Authorization: `Bearer ${keycloak.token}`}})
+        CategoriesServices.createCategory(keycloak.token, title, props.id)
             .then(getCategories)
             .catch(err => console.log(err))
     }
 
     const deleteCategory = (id) => {
-        axios.delete(`http://localhost:2002/categories/${id}`, {headers: {Authorization: `Bearer ${keycloak.token}`}})
+        CategoriesServices.deleteCategory(keycloak.token, id)
             .then(getCategories)
             .catch(err => console.log(err))
     }
 
     useEffect(() => {
-
-        if (initialized) {
-            getCategories()
-        }
+        getCategories()
     }, [setCategories, initialized]);
 
     return (
         <div className={classes.container}>
-            {categories.map((el) => <CategoriesItem delete={deleteCategory} key={el.id} data={el} />)}
+            {categories.map((el) => <CategoriesItem delete={deleteCategory} id={el.id} key={el.id} data={el} />)}
             <CreateCategory create={createCategory}/>
         </div>
     );

@@ -1,6 +1,7 @@
 .container {
     border-radius: 5px;
-    background: #F1F1F1;
+    background-color: #fcfcfc;
+    box-shadow: 1px 2px 2px 1px lightgray;
     min-height: 225px;
 }
 
@@ -43,5 +44,5 @@
 }
 
 .content {
-
+    height: 350px;
 }

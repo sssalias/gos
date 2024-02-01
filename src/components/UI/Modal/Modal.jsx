@@ -3,7 +3,6 @@ import classes from './Modal.module.css'
 import CloseButton from "../CloseButton/CloseButton";
 import classNames from "classnames";
 const Modal = (props) => {
-    console.log('afasf')
     return (
         props.active ?
         <div className={classes.modal__wrapper}>

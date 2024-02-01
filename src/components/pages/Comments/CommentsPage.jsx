@@ -3,7 +3,6 @@ import BaseLayout from "../../layout/BaseLayout";
 import CommentsList from "./CommentsList/CommentsList";
 import {useKeycloak} from "@react-keycloak/web";
 import axios from "axios";
-// import axiosInstance from "../../../services";
 
 
 const MenuPage = () => {

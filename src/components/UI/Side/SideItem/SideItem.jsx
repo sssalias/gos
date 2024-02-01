@@ -15,7 +15,7 @@ const SideItem = (props) => {
     let [link, setLink] = useState(checkUrls(props.link))
 
     return (
-        <Link className={classes.link__wrapper} to={props.link}>
+        <Link className={classes.link__wrapper} to={props.link ? `/${props.link}` : null}>
             <div className={classNames(classes.container, link ? classes.container__active : '')} onClick={props.event}>
                 <div className={classes.icon}>
                     <img src={props.icon ?? dot} className={classes.img}/>

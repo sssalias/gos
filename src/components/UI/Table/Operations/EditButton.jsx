@@ -3,7 +3,7 @@ import edit from '../../../../assets/img/icons/operations/edit.svg'
 import classes from './Opertions.module.css'
 const DeleteButton = (props) => {
     return (
-        <button className={classes.button}>
+        <button onClick={props.event} className={classes.button}>
             <img src={edit} alt=""/>
         </button>
     );

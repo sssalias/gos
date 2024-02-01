@@ -1,12 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './CommentsItem.module.css'
 import CloseButton from "../../../../UI/CloseButton/CloseButton";
 import Modal from "../../../../UI/Modal/Modal";
 const CommentsItem = (props) => {
 
+    const [activeModal, setActiveModal] = useState(false)
+
     return (
         <div className={classes.container}>
-            <Modal active={false}/>
+            <Modal title={`Обращение №${props.data.commentId}`} close={() => setActiveModal(false)} active={activeModal}>
+                <div className={classes.content}>
+                    <p>{props.data.text}</p>
+                </div>
+            </Modal>
             <div className={classes.wrapper}>
                 <div className={classes.header}>
                     <div className={classes.title}>
@@ -15,10 +21,7 @@ const CommentsItem = (props) => {
                     </div>
                     <CloseButton event={() => props.delete(props.data.id)}/>
                 </div>
-                <div className={classes.content}>
-                    <p>{props.data.text}</p>
-                </div>
-                <button className={classes.more}>Подробнее</button>
+                <button onClick={() => setActiveModal(true)} className={classes.more}>Подробнее</button>
             </div>
         </div>
     );

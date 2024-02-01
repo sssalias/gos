@@ -1,39 +1,27 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React  from 'react';
 import {Route, Routes} from 'react-router-dom';
-import MenuAllPage from "./components/pages/Menu/All/MenuAllPage";
+import MenuPage from "./components/pages/Menu/MenuPage";
 import OrdersPage from "./components/pages/OrdersPage/OrdersPage";
 import CommentsPage from "./components/pages/Comments/CommentsPage";
 
 import {ReactKeycloakProvider} from "@react-keycloak/web";
-import keycloak from "./keycloack";
+import keycloak from "./auth/keycloack";
+import ProtectedRoute from "./auth/ProtectedRoute";
 const App = () => {
 
-    keycloak.onTokenExpired = () => {
-        console.log('a!')
-        // console.log('token expired', keycloak.token);
-        // keycloak.updateToken(30).success(() => {
-        //     console.log('successfully get a new token', keycloak.token);
-        // }).error(() => {
-        //     console.log('error')
-        // });
-    }
-
     const paths = [
-        {path: '/menu/all', element: <MenuAllPage/>},
+        {path: '/menu/*', element: <MenuPage/>},
         {path: '/orders', element: <OrdersPage/>},
         {path: '/comments', element: <CommentsPage/>}
     ]
 
     return (
-        <ReactKeycloakProvider authClient={keycloak}>
+        <ReactKeycloakProvider authClient={keycloak} initOptions={{onLoad: 'login-required'}}>
             <div>
-                <a onClick={() => {
-                    // console.log(token)
-                    // keycloak.login()
-                    // console.log(keycloak.authenticated)
-                    console.log(keycloak.token)
-                    console.log(keycloak.refreshToken)
-                }}>afa</a>
+                {/*<a onClick={() => {*/}
+                {/*    console.log(keycloak.token)*/}
+                {/*    // console.log(keycloak.logout())*/}
+                {/*}}>afa</a>*/}
                 <Routes>
                     {paths.map(({path, element}) => <Route path={path} element={element} key={path}/>)}
                 </Routes>
