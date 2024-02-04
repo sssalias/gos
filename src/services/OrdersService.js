@@ -15,7 +15,11 @@ class OrdersService {
     updateStatus(token, id, status, data) {
         // console.log({...data, id, status})
         const {placeOfDelivery, countOfPersons, wishes, submissionTime, dishes} = data
-        const newData = {placeOfDelivery, countOfPersons, wishes, submissionTime, dishIds: dishes, id, status}
+        const dishIds = []
+        for (let el of dishes) {
+            dishIds.push(el.id)
+        }
+        const newData = {placeOfDelivery, countOfPersons, wishes, submissionTime, dishIds, id, status}
         return makeRequest(token, 'PUT', this.path, newData)
     }
 
