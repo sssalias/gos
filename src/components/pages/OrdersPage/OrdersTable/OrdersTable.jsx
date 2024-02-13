@@ -17,12 +17,13 @@ const OrdersTable = (props) => {
         {title: 'Место подачи', dataIndex: 'placeOfDelivery', key: 'e'},
         {title: 'Дата и время подачи', dataIndex: 'submissionTime', key: 'f'},
         {title: 'Пожелания к заказу', dataIndex: 'wishes', key: 'g'},
+        {title: 'Метод оплаты', dataIndex: 'paymentMethod', key: 'j'},
         {
             title: 'Статус заказа',
             dataIndex: 'status',
             key: 'h',
             render: (data, record) => (
-                <select onChange={(e) => {
+                <select value={data} onClick={() => console.log(data)} onChange={(e) => {
                     props.update(record.id, e.target.value, {...record})
                 }}>
                     <option value="Готовим">Готовим</option>

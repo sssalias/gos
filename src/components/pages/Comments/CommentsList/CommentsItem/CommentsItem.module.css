@@ -44,5 +44,22 @@
 }
 
 .content {
-    height: 350px;
+    width: 100%;
+    min-height: 200px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 25px;
+    flex-direction: column;
+}
+
+.feedback {
+    min-height: 100px;
+    width: 100%;
+    resize: none;
+    padding: 25px;
+}
+
+.send {
+    width: 100%;
 }

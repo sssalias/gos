@@ -12,6 +12,9 @@ class AppealsService {
         return makeRequest(token, 'DELETE', `${this.path}/${id}`)
     }
 
+    sendFeedback(token, id, body) {
+        return makeRequest(token, 'POST', `${this.path}/${id}/feedback`, {body})
+    }
 }
 
 

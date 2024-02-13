@@ -1,7 +1,7 @@
 import axios from 'axios'
 import keycloak from "../auth/keycloack";
 
-export const HOST = 'http://localhost'
+export const HOST = 'http://5.145.160.142'
 export const PORT = 2000
 
 export const axiosInstance = axios.create(

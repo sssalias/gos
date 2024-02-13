@@ -26,9 +26,11 @@ const MenuModal = (props) => {
     }
 
     const deleteDish = (id) => {
-        DishService.deleteDish(keycloak.token, id)
-            .then(getDishes)
-            .catch(err => console.log(err))
+        if (window.confirm('Вы уверены, что хотите уадлить блюдо?')) {
+            DishService.deleteDish(keycloak.token, id)
+                .then(getDishes)
+                .catch(err => console.log(err))
+        }
     }
 
     useEffect(() => {

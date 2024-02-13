@@ -31,6 +31,7 @@ const MenuPage = (props) => {
             <Routes>
                 {menu.map((el) => <Route key={el.id} path={el.id} element={<Category key={el.id} title={el.title} id={el.id} />} />)}
             </Routes>
+            <button>Импортировать меню</button>
         </BaseLayout>
     );
 };

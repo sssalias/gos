@@ -20,6 +20,7 @@ class OrdersService {
             dishIds.push(el.id)
         }
         const newData = {placeOfDelivery, countOfPersons, wishes, submissionTime, dishIds, id, status}
+        console.log(newData)
         return makeRequest(token, 'PUT', this.path, newData)
     }
 

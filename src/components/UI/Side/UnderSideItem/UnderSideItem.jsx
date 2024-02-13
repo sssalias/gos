@@ -31,9 +31,6 @@ const UnderSideItem = (props) => {
             <SideItem event={e => setActive(!active)} active={active} move={move} icon={props.icon}>МЕНЮ</SideItem>
             <div className={classes.content}>
                 <div className={classNames(classes.content__wrapper, active ? classes.content__wrapper__active: null)}>
-                    {/*<SideItem link='/menu/all'>ОБЩЕЕ</SideItem>*/}
-                    {/*<SideItem link='/menu/today'>НА СЕГОДНЯ</SideItem>*/}
-                    {/*<SideItem link='/menu/tomorrow'>НА ЗАВТРА</SideItem>*/}
                     {menuUrls.map((el) => <SideItem key={el.id} link={`menu/${el.id}`}>{el.title}</SideItem>)}
                 </div>
             </div>
