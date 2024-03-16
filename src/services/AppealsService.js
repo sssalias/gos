@@ -15,6 +15,10 @@ class AppealsService {
     sendFeedback(token, id, body) {
         return makeRequest(token, 'POST', `${this.path}/${id}/feedback`, {body})
     }
+
+    updateStatus(token, id, status) {
+        return makeRequest(token, 'PUT', this.path, {id, status})
+    }
 }
 
 

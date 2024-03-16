@@ -5,6 +5,7 @@ import MenuService from "../../../services/MenuService";
 import Category from "./Category/Category";
 import ProtectedRoute from "../../../auth/ProtectedRoute";
 import {useKeycloak} from "@react-keycloak/web";
+import {getFile, getFormData} from "../../../utils/formData";
 
 const MenuPage = (props) => {
 
@@ -12,6 +13,9 @@ const MenuPage = (props) => {
 
     const [menu, setMenu] = useState([])
 
+    const [file, setFile] = useState(null)
+
+    console.log(file)
 
 
     useEffect(() => {
@@ -26,12 +30,21 @@ const MenuPage = (props) => {
             .catch(err => err)
     }
 
+    const parse = () => {
+        MenuService.parse({file})
+            .then((res) => {
+                window.location.reload()
+            })
+            .catch(err => console.log(err))
+    }
+
     return (
         <BaseLayout>
             <Routes>
                 {menu.map((el) => <Route key={el.id} path={el.id} element={<Category key={el.id} title={el.title} id={el.id} />} />)}
             </Routes>
-            <button>Импортировать меню</button>
+            <input type="file" onChange={e => setFile(getFile(e))}/>
+            <button onClick={parse}>Импортировать меню</button>
         </BaseLayout>
     );
 };

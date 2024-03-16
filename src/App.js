@@ -8,13 +8,15 @@ import {ReactKeycloakProvider} from "@react-keycloak/web";
 import keycloak from "./auth/keycloack";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import Menu2 from "./components/pages/menu2/Menu2";
+import Appeals from "./components/pages/appeals/Appeals";
 const App = () => {
 
     const paths = [
         {path: '/menu/*', element: <MenuPage/>},
         {path: '/orders', element: <OrdersPage/>},
         {path: '/comments', element: <CommentsPage/>},
-        {path: '/menu2', element: <Menu2/>}
+        {path: '/menu2', element: <Menu2/>},
+        {path: '/appeals', element: <Appeals/>}
     ]
 
     return (

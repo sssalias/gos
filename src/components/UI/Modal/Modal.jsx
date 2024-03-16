@@ -8,7 +8,7 @@ const Modal = (props) => {
         <div className={classes.modal__wrapper}>
             <div className={classes.container}>
                 <div className={classes.header}>
-                    <h2>{props.title}</h2>
+                    <h2 style={{fontSize: 16}}>{props.title}</h2>
                     <CloseButton event={props.close}/>
                 </div>
                 <div className={classes.content}>

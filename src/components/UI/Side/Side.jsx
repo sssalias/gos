@@ -15,7 +15,7 @@ const Side = (props) => {
                 <Logo/>
                 <UnderSideItem icon={menu}/>
                 <SideItem link='orders' icon={orders}>ЗАКАЗЫ</SideItem>
-                <SideItem link='comments' icon={comments}>ОБРАЩЕНИЯ</SideItem>
+                <SideItem link='appeals' icon={comments}>ОБРАЩЕНИЯ</SideItem>
             </div>
         </div>
     );
