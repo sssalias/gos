@@ -12,22 +12,22 @@ import Appeals from "./components/pages/appeals/Appeals";
 const App = () => {
 
     const paths = [
-        {path: '/menu/*', element: <MenuPage/>},
-        {path: '/orders', element: <OrdersPage/>},
-        {path: '/comments', element: <CommentsPage/>},
-        {path: '/menu2', element: <Menu2/>},
-        {path: '/appeals', element: <Appeals/>}
+        {path: '/*', element: <MenuPage/>, index: true},
+        {path: '/orders', element: <OrdersPage/>, index: false},
+        {path: '/comments', element: <CommentsPage/>, index: false},
+        {path: '/menu2', element: <Menu2/>, index: false},
+        {path: '/appeals', element: <Appeals/>, index: false}
     ]
 
     return (
         <ReactKeycloakProvider authClient={keycloak} initOptions={{onLoad: 'login-required'}}>
             <div>
-                <a onClick={() => {
-                    console.log(keycloak.token)
-                    // console.log(keycloak.logout())
-                }}>afa</a>
+                {/*<a onClick={() => {*/}
+                {/*    console.log(keycloak.token)*/}
+                {/*    // console.log(keycloak.logout())*/}
+                {/*}}>afa</a>*/}
                 <Routes>
-                    {paths.map(({path, element}) => <Route path={path} element={element} key={path}/>)}
+                    {paths.map(({path, element, index}) => <Route index={index} path={path} element={element} key={path}/>)}
                 </Routes>
             </div>
         </ReactKeycloakProvider>
