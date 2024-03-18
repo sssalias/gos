@@ -25,7 +25,7 @@ const UnderSideItem = (props) => {
             getMenuUrls()
         }
     }, [setMenuUrls, initialized]);
-
+    
     return (
         <div className={classes.container}>
             <SideItem event={e => setActive(!active)} active={active} move={move} icon={props.icon}>МЕНЮ</SideItem>
