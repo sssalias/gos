@@ -22,9 +22,11 @@ const App = () => {
 
     return (
         <ReactKeycloakProvider authClient={keycloak} initOptions={{onLoad: 'login-required'}}>
+            <AuthProvider>
                 <Routes>
                     {paths.map(({path, element, index}) => <Route index={index} path={path} element={element} key={path}/>)}
                 </Routes>
+            </AuthProvider>
         </ReactKeycloakProvider>
     );
 };
