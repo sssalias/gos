@@ -45,7 +45,7 @@ const UnderSideItem = (props) => {
         <div className={classes.container}>
             <Modal title='Добавить меню' close={() => setModalIsActive(false)} active={modalIsActive}>
                 <div style={{margin: '0 auto', width: '40%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: 20}}>
-                    <input value='' onChange={e => setData({...data, title: e.target.value})} type='text' required placeholder='Название меню ⃰'/>
+                    <input onChange={e => setData({...data, title: e.target.value})} type='text' required placeholder='Название меню ⃰'/>
                     <label style={
                         {
                             width: '50%',
