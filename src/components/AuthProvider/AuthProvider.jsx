@@ -40,7 +40,7 @@ const AuthProvider = ({children}) => {
          return (
              <div className={classes.error__wrapper}>
                  <Logo/>
-                 <h1>У ВАС НЕ ДОСТАТОЧНО ПРАВ!</h1>
+                 <h1>У ВАС НЕДОСТАТОЧНО ПРАВ!</h1>
              </div>
          )
     }
