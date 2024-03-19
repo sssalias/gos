@@ -8,7 +8,7 @@ class MenuService {
         return makeRequest(token, 'GET', this.path)
     }
     parse(data) {
-        return axios.post(`http://${HOST}:2024/add_menu`, data, {
+        return axios.post(`{HOST}:2024/add_menu`, data, {
             headers: {
                 "Content-Type": 'multipart/form-data'
             }
