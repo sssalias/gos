@@ -1,4 +1,4 @@
-import {makeRequest} from "./index"
+import {HOST, makeRequest} from "./index"
 import axios from "axios";
 
 class MenuService {
@@ -8,11 +8,14 @@ class MenuService {
         return makeRequest(token, 'GET', this.path)
     }
     parse(data) {
-        return axios.post('http://5.145.160.142:2024/add_menu', data, {
+        return axios.post(`http://${HOST}:2024/add_menu`, data, {
             headers: {
                 "Content-Type": 'multipart/form-data'
             }
         })
+    }
+    createMenu(token, data) {
+        return makeRequest(token, 'POST', this.path, data)
     }
 
 }

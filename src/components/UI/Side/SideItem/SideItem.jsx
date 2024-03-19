@@ -16,11 +16,15 @@ const SideItem = (props) => {
 
     return (
         <Link className={classes.link__wrapper} to={props.link ? `/${props.link}` : null}>
-            <div className={classNames(classes.container, link ? classes.container__active : '')} onClick={props.event}>
-                <div className={classes.icon}>
-                    <img src={props.icon ?? dot} className={classes.img}/>
-                </div>
-                <span>{props.children}</span>
+            <div style={props.add ? {display:'flex', justifyContent: 'center'} : null } className={classNames(classes.container, link ? classes.container__active : '')} onClick={props.event}>
+                {!props.add ?
+                    <div className={classes.icon}>
+                        <img src={props.icon ?? dot} className={classes.img}/>
+                    </div>
+                    :
+                    null
+                }
+                <span style={props.add ? {fontSize: 20} : null}>{props.children}</span>
                 {props.move ?
                     <div className={classNames(classes.move, props.active ? classes.move__active : null)}>
                         <img src={props.move} alt=""/>
