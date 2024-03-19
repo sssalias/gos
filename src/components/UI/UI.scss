@@ -5,7 +5,7 @@
 $main-blue-color: #1E3685;
 $main-text-color: #545454;
 
-div {
+div, table {
   &::-webkit-scrollbar-track
   {
     -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
@@ -33,6 +33,10 @@ div {
 
 h4 {
   font-size: 14px;
+}
+
+input[type='radio'] {
+  min-width: 0;
 }
 
 span, input, a {
@@ -83,6 +87,8 @@ input {
 
 .rc-table {
   width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
   //border-radius: 10px;
 }
 
@@ -90,6 +96,7 @@ table {
   width: 100%;
   border-spacing: 0;
   border-collapse: collapse;
+  overflow-x: auto;
 
   thead {
     color: white;
@@ -115,7 +122,6 @@ table {
     font-weight: normal;
     padding: 17px 25px;
     white-space: normal;
-    word-break: break-word;
     text-align: left;
     font-size: 14px;
   }

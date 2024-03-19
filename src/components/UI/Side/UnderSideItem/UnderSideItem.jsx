@@ -23,8 +23,7 @@ const UnderSideItem = (props) => {
     })
 
     const createMenu = () => {
-        // console.log({title: data.title, type: data.today ? 'today' : ''})
-        MenuService.createMenu(keycloak.token, {title: data.title, type: data.today ? 'today' : ''})
+        MenuService.createMenu(keycloak.token, {title: data.title, type: data.today})
             .then(getMenuUrls)
             .catch(err => console.log(err))
         setModalIsActive(false)
@@ -45,8 +44,8 @@ const UnderSideItem = (props) => {
     return (
         <div className={classes.container}>
             <Modal title='Добавить меню' close={() => setModalIsActive(false)} active={modalIsActive}>
-                <div style={{margin: '0 auto', width: '70%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: 20}}>
-                    <input onChange={e => setData({...data, title: e.target.value})} type='text' required placeholder='Название меню ⃰'/>
+                <div style={{margin: '0 auto', width: '40%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: 20}}>
+                    <input value='' onChange={e => setData({...data, title: e.target.value})} type='text' required placeholder='Название меню ⃰'/>
                     <label style={
                         {
                             width: '50%',
@@ -56,9 +55,22 @@ const UnderSideItem = (props) => {
                             gap: 5
                         }
                     }>
-                        <input onChange={e => setData({...data, today: e.target.checked})} style={{width: '10%'}} type="checkbox"/>
+                        <input onChange={e => setData({...data, today: 'today'})} name='type' style={{width: '10%'}} type="radio"/>
                         <span>На сегодня</span>
                     </label>
+                    <label style={
+                        {
+                            width: '50%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            gap: 5
+                        }
+                    }>
+                        <input onChange={e => setData({...data, today: 'tommorow'})} name='type' style={{width: '10%'}} type="radio"/>
+                        <span>На завтра</span>
+                    </label>
+                    
                     <button onClick={createMenu}>Добавить</button>
                 </div>
             </Modal>
