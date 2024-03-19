@@ -10,7 +10,7 @@ const Category = (props) => {
     const parse = () => {
         MenuService.parse({file: file, menu_id: props.menu.id, menu_type: props.menu.type})
             .then((res) => {
-                window.location.reload()
+                // window.location.reload()
             })
             .catch(err => console.log(err))
     }
@@ -19,7 +19,7 @@ const Category = (props) => {
         <div className={classes.container}>
             <h1>{props.title}</h1>
             <CategoriesList id={props.id}/>
-            <form style={{
+            <div style={{
                 width: '100%',
                 display: 'flex',
                 flexDirection: 'column',
@@ -27,7 +27,7 @@ const Category = (props) => {
             }}>
                 <input required={true} type="file" onChange={e => setFile(getFile(e))}/>
                 <button onClick={parse}>Импортировать меню</button>
-            </form>
+            </div>
         </div>
     );
 };
