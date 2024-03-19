@@ -30,21 +30,11 @@ const MenuPage = (props) => {
             .catch(err => err)
     }
 
-    const parse = () => {
-        MenuService.parse({file})
-            .then((res) => {
-                window.location.reload()
-            })
-            .catch(err => console.log(err))
-    }
-
     return (
         <BaseLayout>
             <Routes>
-                {menu.map((el) => <Route key={el.id} path={el.id} element={<Category key={el.id} title={el.title} id={el.id} />} />)}
+                {menu.map((el) => <Route key={el.id} path={el.id} element={<Category menu={el} meny key={el.id} title={el.title} id={el.id} />} />)}
             </Routes>
-            <input type="file" onChange={e => setFile(getFile(e))}/>
-            <button onClick={parse}>Импортировать меню</button>
         </BaseLayout>
     );
 };
