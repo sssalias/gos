@@ -9,6 +9,7 @@ import keycloak from "./auth/keycloack";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import Menu2 from "./components/pages/menu2/Menu2";
 import Appeals from "./components/pages/appeals/Appeals";
+import AuthProvider from './components/AuthProvider/AuthProvider';
 const App = () => {
 
     const paths = [
@@ -21,15 +22,11 @@ const App = () => {
 
     return (
         <ReactKeycloakProvider authClient={keycloak} initOptions={{onLoad: 'login-required'}}>
-            <div>
-                {/*<a onClick={() => {*/}
-                {/*    console.log(keycloak.token)*/}
-                {/*    // console.log(keycloak.logout())*/}
-                {/*}}>afa</a>*/}
+            <AuthProvider>
                 <Routes>
                     {paths.map(({path, element, index}) => <Route index={index} path={path} element={element} key={path}/>)}
                 </Routes>
-            </div>
+            </AuthProvider>
         </ReactKeycloakProvider>
     );
 };
