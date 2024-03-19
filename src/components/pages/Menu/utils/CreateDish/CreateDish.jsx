@@ -18,14 +18,15 @@ const CreateDish = (props) => {
     )
 
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        e.preventDefault()
         props.create(data)
         props.close()
     }
 
     return (
         <Modal title='Добавить блюдо' close={props.close} active={props.active}>
-            <div className={classes.form}>
+            <form className={classes.form}>
                 <input onChange={e => setData({...data, title: e.target.value})} type="text" name='title' placeholder='Название ⃰'/>
                 <input onChange={e => setData({...data, price: e.target.value})} type="number" name='price' placeholder='Цена ⃰'/>
                 <input onChange={e => setData({...data, cookingTime: e.target.value})} type="number" name='cookingTime' placeholder='Время приготовления ⃰'/>
@@ -35,7 +36,7 @@ const CreateDish = (props) => {
                 <input onChange={e => setData({...data, fats: e.target.value})} type="number" name='fats' placeholder='Жиры'/>
                 <input onChange={e => setData({...data, carbohydrates: e.target.value})} type="number" name='carbohydrates' placeholder='Углеводы'/>
                 <button onClick={handleClick}>Добавить</button>
-            </div>
+            </form>
         </Modal>
     );
 };

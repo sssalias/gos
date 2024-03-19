@@ -17,6 +17,9 @@ const AppealsList = () => {
     const [filerAppeals, setFilterAppeals] = useState([])
 
     const getAppeals = () => {
+
+        console.log(keycloak.token)
+
         AppealsService.getAppeals(keycloak.token)
             .then(res => {
                 setAppeals(res.data)
