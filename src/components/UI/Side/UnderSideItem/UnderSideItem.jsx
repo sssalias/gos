@@ -17,6 +17,11 @@ const UnderSideItem = (props) => {
 
     const [modalIsActive, setModalIsActive] = useState(false)
 
+    const [menuInfo, setMenuInfo] = useState({
+        today: null,
+        tomorrow: null
+    })
+
     const [data, setData] = useState({
         title: '',
         today: false
@@ -27,11 +32,18 @@ const UnderSideItem = (props) => {
             .then(getMenuUrls)
             .catch(err => console.log(err))
         setModalIsActive(false)
+        window.location.reload()
     }
 
     const getMenuUrls = () => {
         MenuService.getMenu(keycloak.token)
-            .then(res => setMenuUrls(res.data))
+            .then(res => {
+                setMenuUrls(res.data)
+                setMenuInfo({
+                    today: res.data[0].type === 'today' || res.data[1].type === 'today',
+                    tomorrow: res.data[0].type === 'tomorrow' || res.data[1].type === 'tomorrow'
+                })
+            })
             .catch(err => console.log(err))
     }
 
@@ -45,31 +57,40 @@ const UnderSideItem = (props) => {
         <div className={classes.container}>
             <Modal title='Добавить меню' close={() => setModalIsActive(false)} active={modalIsActive}>
                 <div style={{margin: '0 auto', width: '40%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: 20}}>
-                    <input onChange={e => setData({...data, title: e.target.value})} type='text' required placeholder='Название меню ⃰'/>
-                    <label style={
-                        {
-                            width: '50%',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            gap: 5
-                        }
-                    }>
-                        <input onChange={e => setData({...data, today: 'today'})} name='type' style={{width: '10%'}} type="radio"/>
-                        <span>На сегодня</span>
-                    </label>
-                    <label style={
-                        {
-                            width: '50%',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            gap: 5
-                        }
-                    }>
-                        <input onChange={e => setData({...data, today: 'tommorow'})} name='type' style={{width: '10%'}} type="radio"/>
-                        <span>На завтра</span>
-                    </label>
+                    {!menuInfo.today ?
+
+                        <label style={
+                            {
+                                width: '50%',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                gap: 5
+                            }
+                        }>
+                            <input onChange={e => setData({title: 'На сегодня', today: 'today'})} name='type' style={{width: '10%'}} type="radio"/>
+                            <span>На сегодня</span>
+                        </label>
+                        :
+                        null
+                    }
+                    {!menuInfo.tomorrow ?
+
+                        <label style={
+                            {
+                                width: '50%',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                gap: 5
+                            }
+                        }>
+                            <input onChange={e => setData({title: 'На завтра', today: 'tomorrow'})} name='type' style={{width: '10%'}} type="radio"/>
+                            <span>На завтра</span>
+                        </label>
+                        :
+                        null
+                    }
                     
                     <button onClick={createMenu}>Добавить</button>
                 </div>
@@ -78,7 +99,7 @@ const UnderSideItem = (props) => {
             <div className={classes.content}>
                 <div className={classNames(classes.content__wrapper, active ? classes.content__wrapper__active: null)}>
                     {menuUrls.map((el) => <SideItem key={el.id} link={el.id}>{el.title}</SideItem>)}
-                    <SideItem event={() => setModalIsActive(true)} add={true} link={null}>+</SideItem>
+                    {!menuInfo.tomorrow || ! menuInfo.today ? <SideItem event={() => setModalIsActive(true)} add={true} link={null}>+</SideItem> : null}
                 </div>
             </div>
         </div>
