@@ -30,7 +30,7 @@ const UnderSideItem = (props) => {
             .then(getMenuUrls)
             .catch(err => console.log(err))
         setModalIsActive(false)
-        // window.location.reload()
+        window.location.reload()
     }
 
     const getMenuUrls = () => {
