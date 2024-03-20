@@ -42,7 +42,11 @@ const AppealsList = () => {
 
     useEffect(() => {
         if(initialized) {
+            console.log(importantFilter)
             console.log(filerAppeals)
+            console.log(            appeals.filter(el => {
+                el.ownerRoles.includes(importantFilter)
+            }))
             setFilterAppeals(appeals.filter(el => el.ownerRoles.includes(importantFilter)))
         }
     }, [initialized, importantFilter])
@@ -79,8 +83,8 @@ const AppealsList = () => {
                 <h4>Роль автора:</h4>
                 <select value={importantFilter} onChange={e => setImportantFilter(e.target.value)}>
                     <option value="user">ВСЕ</option>
-                    <option value="super_vip">VIP</option>
-                    <option value="vip">SUPER VIP</option>
+                    <option value="vip">VIP</option>
+                    <option value="super_vip">SUPER VIP</option>
                 </select>
             </div>
             {filerAppeals.map(el => <AppealsItem updateStatus={updateStatus} feedbackEvent={sendFeedback} ownerRole={el.ownerRoles[0]} event={deleteAppeal} status={el.status} id={el.id} key={el.id} number={el.number} ownerEmail={el.ownerEmail} body={el.body} feedback={el.feedback !== null ? el.feedback.body : null}/>)}
