@@ -1,8 +1,8 @@
 import axios from 'axios'
 import keycloak from "../auth/keycloack";
 
-export const HOST = 'http://192.168.0.101'
-export const PORT = 2000
+export const HOST = `${process.env.REACT_APP_API_HOST}`
+export const PORT = process.env.REACT_APP_API_PORT
 
 export const axiosInstance = axios.create(
     {

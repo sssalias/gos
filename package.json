@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.7",
     "classnames": "^2.5.1",
+    "dotenv-webpack": "^8.0.1",
     "jwt-decode": "^4.0.0",
     "keycloak-js": "^23.0.4",
     "keycloak-verify": "^0.4.0",

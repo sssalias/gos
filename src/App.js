@@ -12,6 +12,8 @@ import Appeals from "./components/pages/appeals/Appeals";
 import AuthProvider from './components/AuthProvider/AuthProvider';
 const App = () => {
 
+    console.log(process.env)
+
     const paths = [
         {path: '/*', element: <MenuPage/>, index: true},
         {path: '/orders', element: <OrdersPage/>, index: false},
