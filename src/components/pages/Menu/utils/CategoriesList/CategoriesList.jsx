@@ -28,10 +28,10 @@ const CategoriesList = (props) => {
             .then(getCategories)
             .catch(err => console.log(err))
     }
-
+    
     useEffect(() => {
         getCategories()
-    }, [setCategories, initialized]);
+    }, [initialized]);
 
     return (
         <div className={classes.container}>

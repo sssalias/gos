@@ -27,10 +27,12 @@ const UnderSideItem = (props) => {
 
     const createMenu = () => {
         MenuService.createMenu(keycloak.token, {title: data.title, type: data.today})
-            .then(getMenuUrls)
+            .then(() => {
+                getMenuUrls()
+                window.location.reload()
+            })
             .catch(err => console.log(err))
         setModalIsActive(false)
-        window.location.reload()
     }
 
     const getMenuUrls = () => {
@@ -62,7 +64,7 @@ const UnderSideItem = (props) => {
         if (initialized) {
             getMenuUrls()
         }
-    }, [setMenuUrls, initialized]);
+    }, [initialized]);
 
 
     console.log(today, tomorrow)
