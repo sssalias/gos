@@ -30,13 +30,15 @@ const UnderSideItem = (props) => {
             .then(getMenuUrls)
             .catch(err => console.log(err))
         setModalIsActive(false)
-        window.location.reload()
+        // window.location.reload()
     }
 
     const getMenuUrls = () => {
         MenuService.getMenu(keycloak.token)
             .then(res => {
                 setMenuUrls(res.data)
+
+                console.log(res.data)
 
                 for (let item of res.data) {
                     if (item.type === 'today') {
@@ -93,7 +95,7 @@ const UnderSideItem = (props) => {
                                 gap: 5
                             }
                         }>
-                            <input onChange={e => setData({title: 'На завтра', today: 'tommorow'})} name='type' style={{width: '10%'}} type="radio"/>
+                            <input onChange={e => setData({title: 'На завтра', today: 'tomorrow'})} name='type' style={{width: '10%'}} type="radio"/>
                             <span>На завтра</span>
                         </label>
                     }
