@@ -6,7 +6,7 @@ export const PORT = process.env.REACT_APP_API_PORT
 
 export const axiosInstance = axios.create(
     {
-        baseURL: `${HOST}:${PORT}`,
+        baseURL: `${HOST}`,
         headers: {
             Authorization: `Bearer ${keycloak.token}`,
             "Content-Type": 'application/json'

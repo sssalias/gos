@@ -8,7 +8,7 @@ class MenuService {
         return makeRequest(token, 'GET', this.path)
     }
     parse(data) {
-        return axios.post(`${process.env.REACT_APP_PARSER_HOST}:${process.env.REACT_APP_PARSER_PORT}/add_menu`, data, {
+        return axios.post(`${process.env.REACT_APP_PARSER_HOST}/add_menu`, data, {
             headers: {
                 "Content-Type": 'multipart/form-data'
             }
