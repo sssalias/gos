@@ -29,6 +29,7 @@ const AppealsItem = ({updateStatus, feedbackEvent, event, ownerRole, number, sta
                 <h3>e-mail: {ownerEmail}</h3>
                 <select value={status} onChange={e => updateStatus(id, e.target.value)}>
                     <option value={status}>{status}</option>
+                    <option value="NEW">NEW</option>
                     <option value="Принято">Принято</option>
                     <option value="Отклонено">Отклонено</option>
                 </select>

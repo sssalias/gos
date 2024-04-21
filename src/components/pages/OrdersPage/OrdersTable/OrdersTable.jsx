@@ -3,6 +3,7 @@ import Table from "rc-table";
 import DeleteButton from "../../../UI/Table/Operations/DeleteButton";
 import MoreButton from "../../../UI/Table/Operations/MoreButton";
 import OrderModal from "../OrderModal/OrderModal";
+import { format } from 'date-fns';
 
 const OrdersTable = (props) => {
 
@@ -15,7 +16,11 @@ const OrdersTable = (props) => {
         {title: 'Цена', dataIndex: 'price', key: 'b'},
         {title: 'Кол-во персон', dataIndex: 'countOfPersons', key: 'd'},
         {title: 'Место подачи', dataIndex: 'placeOfDelivery', key: 'e'},
-        {title: 'Дата и время подачи', dataIndex: 'submissionTime', key: 'f'},
+        {title: 'Дата и время подачи', dataIndex: 'submissionTime', key: 'f', render: (data, record) => (
+            <span>
+                {format(data, 'dd.MM.yyyy kk:mm')}
+            </span>
+            )},
         {title: 'Пожелания к заказу', dataIndex: 'wishes', key: 'g'},
         {title: 'Метод оплаты', dataIndex: 'paymentMethod', key: 'j'},
         {

@@ -18,6 +18,10 @@ class MenuService {
         return makeRequest(token, 'POST', this.path, data)
     }
 
+    clearMenu(token, menuId) {
+        return makeRequest(token, 'DELETE', `http://localhost:2000/categories/clear/by-menu/${menuId}`)
+    }
+
 }
 
 export default new MenuService()

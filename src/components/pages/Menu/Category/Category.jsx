@@ -4,8 +4,15 @@ import classes from './Category.module.css'
 import {getFile} from '../../../../utils/formData';
 import MenuService from '../../../../services/MenuService';
 
+import {FaTrash} from 'react-icons/fa'
+import {useKeycloak} from "@react-keycloak/web";
+import DeleteModal from "../../../UI/DeleteModal/DeleteModal";
+
 const Category = (props) => {
     const [file, setFile] = useState(null)
+    const {keycloak, initialized} = useKeycloak()
+
+    const [activeDeleteModal, setActiveDeleteModal] = useState(false)
 
     const parse = () => {
         MenuService.parse({file: file, menu_title: props.menu.title, menu_id: props.menu.id, menu_type: props.menu.type})
@@ -15,9 +22,22 @@ const Category = (props) => {
             .catch(err => console.log(err))
     }
 
+    const clearMenu = () => {
+        MenuService.clearMenu(keycloak.token, props.menu.id)
+            .then(res => {
+                console.log(res)
+                window.location.reload()
+            })
+            .catch(err => console.log(err))
+    }
+
     return (
         <div className={classes.container}>
-            <h1>{props.title}</h1>
+            <DeleteModal title='все позиции меню' active={activeDeleteModal} close={() => setActiveDeleteModal(false)} event={clearMenu}/>
+            <div className={classes.header}>
+                <h1>{props.title}</h1>
+                <button onClick={() => setActiveDeleteModal(true)}>{FaTrash()}</button>
+            </div>
             <CategoriesList id={props.id}/>
             <div style={{
                 width: '100%',

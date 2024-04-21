@@ -7,21 +7,33 @@ const CreateDish = (props) => {
     const [data, setData] = useState(
         {
             title: null,
-            price: null,
-            calories: null,
-            proteins: null,
-            fats: null,
-            carbohydrates: null,
-            cookingTime: null,
-            weight: null
+            price: 0,
+            calories: 0,
+            proteins:0,
+            fats: 0,
+            carbohydrates: 0,
+            cookingTime: 0,
+            weight: 0
         }
     )
 
 
     const handleClick = (e) => {
         e.preventDefault()
-        if (data.title !== null && data.title !== '' ** data.weight !== 0 && data.cookingTime !== 0 && data.price !== 0)  {
+        if (data.title !== null && data.title !== '' && data.weight !== 0  && data.cookingTime !== 0 && data.price !== 0)  {
             props.create(data)
+            setData(
+                {
+                    title: null,
+                    price: 0,
+                    calories: 0,
+                    proteins:0,
+                    fats: 0,
+                    carbohydrates: 0,
+                    cookingTime: 0,
+                    weight: 0
+                }
+            )
             props.close()
         }
     }
@@ -31,9 +43,9 @@ const CreateDish = (props) => {
         <Modal title='Добавить блюдо' close={props.close} active={props.active}>
             <form className={classes.form}>
                 <input onChange={e => setData({...data, title: e.target.value})} type="text" required name='title' placeholder='Название ⃰'/>
-                <input onChange={e => setData({...data, price: e.target.value})} type="number"  required name='price' placeholder='Цена ⃰'/>
-                <input onChange={e => setData({...data, cookingTime: e.target.value})} type="number" required name='cookingTime' placeholder='Время приготовления ⃰'/>
-                <input onChange={e => setData({...data, weight: e.target.value.toString()})} type="number" required name='weight' placeholder='Вес ⃰'/>
+                <input min={1} onChange={e => setData({...data, price: +e.target.value})} type="number"  required name='price' placeholder='Цена ⃰'/>
+                <input min={1} onChange={e => setData({...data, cookingTime: +e.target.value})} type="number" required name='cookingTime' placeholder='Время приготовления ⃰'/>
+                <input onChange={e => setData({...data, weight: e.target.value.toString()})} type="text" required name='weight' placeholder='Вес ⃰'/>
                 <input onChange={e => setData({...data, calories: e.target.value})} type="number" name='calories' placeholder='Калории'/>
                 <input onChange={e => setData({...data, proteins: e.target.value})} type="number" name='proteins' placeholder='Белки'/>
                 <input onChange={e => setData({...data, fats: e.target.value})} type="number" name='fats' placeholder='Жиры'/>
