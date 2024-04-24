@@ -58,6 +58,7 @@ const OrdersTable = (props) => {
         <>
             <OrderModal data={activeData} close={() => setActiveInfo(false)} active={activeInfo}/>
             <Table
+                emptyText='Нет данных'
                 columns={col}
                 data={props.data}
             />

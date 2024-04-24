@@ -42,8 +42,9 @@ const MenuTable = (props) => {
 
     return (
         <>
-            <DeleteModal active={deleteActive} event={deleteHandler} title='блюдо'/>
+            <DeleteModal close={() => setDeleteActive(false)} active={deleteActive} event={deleteHandler} title='блюдо'/>
             <Table
+                emptyText='Нет данных'
                 columns={col}
                 data={props.data}
             />

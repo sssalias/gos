@@ -4,3 +4,10 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 25px;
 }
+
+.error {
+    width: 100%;
+    color: red;
+    text-align: center;
+    font-weight: bold;
+}
