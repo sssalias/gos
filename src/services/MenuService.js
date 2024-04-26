@@ -7,10 +7,11 @@ class MenuService {
     getMenu(token) {
         return makeRequest(token, 'GET', this.path)
     }
-    parse(data) {
-        return axios.post(`${process.env.REACT_APP_PARSER_HOST}/add_menu`, data, {
+    parse(token, data) {
+        return axios.post(`${process.env.REACT_APP_PARSER_HOST}/api/v1/parser/parse`, data, {
             headers: {
-                "Content-Type": 'multipart/form-data'
+                "Content-Type": 'multipart/form-data',
+                Authorization: `Bearer ${token}`
             }
         })
     }

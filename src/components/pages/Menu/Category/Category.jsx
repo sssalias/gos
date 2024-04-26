@@ -15,7 +15,7 @@ const Category = (props) => {
     const [activeDeleteModal, setActiveDeleteModal] = useState(false)
 
     const parse = () => {
-        MenuService.parse({file: file, menu_title: props.menu.title, menu_id: props.menu.id, menu_type: props.menu.type})
+        MenuService.parse(keycloak.token, {file: file, menuType: props.menu.type})
             .then((res) => {
                 window.location.reload()
             })
