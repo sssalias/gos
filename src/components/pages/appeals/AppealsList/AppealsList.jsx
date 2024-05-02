@@ -4,6 +4,7 @@ import classes from './AppealsList.module.css'
 import {useRequest} from "../../../../hooks/requestHook";
 import AppealsService from "../../../../services/AppealsService";
 import {useKeycloak} from "@react-keycloak/web";
+import {jwtDecode} from "jwt-decode";
 
 const AppealsList = () => {
 
@@ -15,6 +16,8 @@ const AppealsList = () => {
     const [importantFilter, setImportantFilter] = useState('ВСЕ')
 
     const [filerAppeals, setFilterAppeals] = useState([])
+
+    const roles = jwtDecode(keycloak.token).resource_access["kozodoy-client"].roles
 
     const getAppeals = () => {
 
@@ -32,6 +35,15 @@ const AppealsList = () => {
             getAppeals()
         }
     }, [initialized, setAppeals]);
+
+
+    useEffect(() => {
+        if (initialized) {
+            if (!roles.includes('admin')) {
+                setAppeals(appeals.filter(el => !el.ownerRoles.includes('vip') &&  !el.ownerRoles.includes('super_vip')))
+            }
+        }
+    }, [initialized, appeals])
 
 
     useEffect(() => {
@@ -83,8 +95,10 @@ const AppealsList = () => {
                 <h4>Роль автора:</h4>
                 <select value={importantFilter} onChange={e => setImportantFilter(e.target.value)}>
                     <option value="user">ВСЕ</option>
-                    <option value="vip">VIP</option>
-                    <option value="super_vip">SUPER VIP</option>
+                    {roles.includes('admin') ? <>
+                        <option value="vip">VIP</option>
+                        <option value="super_vip">SUPER VIP</option>
+                    </> : null}
                 </select>
             </div>
             {filerAppeals.map(el => <AppealsItem updateStatus={updateStatus} feedbackEvent={sendFeedback} ownerRole={el.ownerRoles[0]} event={deleteAppeal} status={el.status} id={el.id} key={el.id} number={el.number} ownerEmail={el.ownerEmail} body={el.body} feedback={el.feedback !== null ? el.feedback.body : null}/>)}

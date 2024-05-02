@@ -21,7 +21,7 @@ const AuthProvider = ({children}) => {
         if (initialized) {
             if (keycloak.token) {
                 const roles = jwtDecode(keycloak.token).resource_access["kozodoy-client"].roles
-                if (roles.includes('admin')) {
+                if (roles.includes('admin') || roles.includes('manager')) {
                     setHasRoot(true)
                     setLoading(false)
                 } else {

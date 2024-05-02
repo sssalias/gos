@@ -14,6 +14,8 @@ const Header = () => {
             setUserData([jwt.given_name, ' ', jwt.family_name])
             if (keycloak.resourceAccess['kozodoy-client'].roles.includes('admin')) {
                 setRoleData('Администатор')
+            } else if (keycloak.resourceAccess['kozodoy-client'].roles.includes('manager')) {
+                setRoleData('Менеджер')
             }
         }
     }, [initialized]);

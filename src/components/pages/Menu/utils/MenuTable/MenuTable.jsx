@@ -3,12 +3,22 @@ import Table from "rc-table";
 import DeleteButton from "../../../../UI/Table/Operations/DeleteButton";
 import DeleteModal from '../../../../UI/DeleteModal/DeleteModal';
 
+import classes from "./MenuTable.module.css";
+import MediaService from "../../../../../services/MediaService";
+
 const MenuTable = (props) => {
 
 
     const [selected, setSelected] = useState(null)
 
     const col = [
+        {title: 'Фото', dataIndex: 'photoId', key: 'ph', render: (data, record) => (
+                <div className={classes.photo}>
+                    <img src={MediaService.getFile(data)}
+                         alt=""/>
+                </div>
+            )
+        },
         {title: 'Название', dataIndex: 'title', key: 'a'},
         {title: 'Цена', dataIndex: 'price', key: 'b'},
         {title: 'Время приготовления', dataIndex: 'cookingTime', key: 'g'},

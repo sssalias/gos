@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import Modal from "../../../../UI/Modal/Modal";
 import classes from './CreateDish.module.css'
+import {makeRequest} from "../../../../../services";
+import {useKeycloak} from "@react-keycloak/web";
+import MediaService from "../../../../../services/MediaService";
 
 const CreateDish = (props) => {
 
@@ -13,9 +16,14 @@ const CreateDish = (props) => {
             fats: 0,
             carbohydrates: 0,
             cookingTime: 0,
-            weight: null
+            weight: null,
+            photoId: null
         }
     )
+
+    const [file, setFile] = useState(null)
+
+    const {keycloak} = useKeycloak()
 
     const [error, setError] = useState('')
 
@@ -23,7 +31,11 @@ const CreateDish = (props) => {
     const handleClick = (e) => {
         e.preventDefault()
         if (data.title !== null && data.title !== '' && data.weight !== null  && data.cookingTime !== 0 && data.price !== 0)  {
-            props.create(data)
+
+
+            MediaService.uploadFile(keycloak.token, {file})
+                .then(res => props.create({...data, photoId: res.data.id}))
+
             setData(
                 {
                     title: null,
@@ -33,9 +45,11 @@ const CreateDish = (props) => {
                     fats: 0,
                     carbohydrates: 0,
                     cookingTime: 0,
-                    weight: null
+                    weight: null,
+                    photoId: null
                 }
             )
+            setFile(null)
             setError('')
             props.close()
         }
@@ -65,16 +79,31 @@ const CreateDish = (props) => {
                 <span>{error}</span>
             </div>
             <form className={classes.form}>
-                <input onChange={e => setData({...data, title: e.target.value})} type="text" required name='title' placeholder='Название ⃰'/>
-                <input min={1} onChange={e => setData({...data, price: +e.target.value})} required name='price' placeholder='Цена (рубли:копейки) ⃰'/>
-                <input min={1} onChange={e => setData({...data, cookingTime: +e.target.value})} type="number" required name='cookingTime' placeholder='Время приготовления (минуты) ⃰'/>
-                <input onChange={e => setData({...data, weight: e.target.value.toString()})} type="text" required name='weight' placeholder='Вес (граммы) ⃰'/>
-                <input onChange={e => setData({...data, calories: e.target.value})} type="number" name='calories' placeholder='Калории'/>
-                <input onChange={e => setData({...data, proteins: e.target.value})} type="number" name='proteins' placeholder='Белки'/>
-                <input onChange={e => setData({...data, fats: e.target.value})} type="number" name='fats' placeholder='Жиры'/>
-                <input onChange={e => setData({...data, carbohydrates: e.target.value})} type="number" name='carbohydrates' placeholder='Углеводы'/>
-                <button onClick={handleClick}>Добавить</button>
+                <input onChange={e => setData({...data, title: e.target.value})} type="text" required name='title'
+                       placeholder='Название ⃰'/>
+                <input min={1} onChange={e => setData({...data, price: +e.target.value})} required name='price'
+                       placeholder='Цена (рубли:копейки) ⃰'/>
+                <input min={1} onChange={e => setData({...data, cookingTime: +e.target.value})} type="number" required
+                       name='cookingTime' placeholder='Время приготовления (минуты) ⃰'/>
+                <input onChange={e => setData({...data, weight: e.target.value.toString()})} type="text" required
+                       name='weight' placeholder='Вес (граммы) ⃰'/>
+                <input onChange={e => setData({...data, calories: e.target.value})} type="number" name='calories'
+                       placeholder='Калории'/>
+                <input onChange={e => setData({...data, proteins: e.target.value})} type="number" name='proteins'
+                       placeholder='Белки'/>
+                <input onChange={e => setData({...data, fats: e.target.value})} type="number" name='fats'
+                       placeholder='Жиры'/>
+                <input onChange={e => setData({...data, carbohydrates: e.target.value})} type="number"
+                       name='carbohydrates' placeholder='Углеводы'/>
+                <div>
+                    <label>Добавить фото</label>
+                    <input type="file" onChange={e => setFile(e.target.files.item(0))}/>
+                </div>
+                <div>
+
+                </div>
             </form>
+            <button className={classes.send__btn} onClick={handleClick}>Добавить</button>
         </Modal>
     );
 };
