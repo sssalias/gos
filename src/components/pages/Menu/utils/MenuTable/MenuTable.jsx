@@ -8,6 +8,8 @@ import MediaService from "../../../../../services/MediaService";
 import UpdateDish from "../UpdateDish/UpdateDish";
 import EditButton from "../../../../UI/Table/Operations/EditButton";
 
+import holder from '../../../../../assets/img/holder.jpg'
+
 const MenuTable = (props) => {
 
 
@@ -18,7 +20,10 @@ const MenuTable = (props) => {
     const col = [
         {title: 'Фото', dataIndex: 'photoId', key: 'ph', render: (data, record) => (
                 <div className={classes.photo}>
-                    <img src={MediaService.getFile(data)}
+                    <img src={MediaService.getFile(data)} onError={({currentTarget}) => {
+                        currentTarget.onerror = null
+                        currentTarget.src = holder
+                    }}
                          alt=""/>
                 </div>
             )
