@@ -16,6 +16,9 @@ class DishService {
     deleteDish(token, id) {
         return makeRequest(token, 'DELETE', `${this.path}/${id}`)
     }
+    updateDish(token, data) {
+        return makeRequest(token, 'PUT', this.path, data)
+    }
 }
 
 export default new DishService()

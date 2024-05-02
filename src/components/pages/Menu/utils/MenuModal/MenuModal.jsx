@@ -31,13 +31,19 @@ const MenuModal = (props) => {
             .catch(err => console.log(err))
     }
 
+    const updateDish = (data) => {
+        DishService.updateDish(keycloak.token, data)
+            .then(getDishes)
+            .catch(err => console.log(err))
+    }
+
     useEffect(() => {
         getDishes()
     }, [setDishes, initialized]);
 
     return (
         <Modal close={props.close} title={props.title} active={props.active}>
-            <MenuTable delete={deleteDish} data={dishes}/>
+            <MenuTable update={updateDish} delete={deleteDish} data={dishes}/>
             <CreateDish create={createDish} active={activeCreate} close={() => setActiveCreate(false)}/>
             <button onClick={() => setActiveCreate(true)} style={{width: '100%'}}>+</button>
         </Modal>

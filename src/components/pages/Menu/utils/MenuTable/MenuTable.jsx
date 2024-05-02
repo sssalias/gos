@@ -5,11 +5,15 @@ import DeleteModal from '../../../../UI/DeleteModal/DeleteModal';
 
 import classes from "./MenuTable.module.css";
 import MediaService from "../../../../../services/MediaService";
+import UpdateDish from "../UpdateDish/UpdateDish";
+import EditButton from "../../../../UI/Table/Operations/EditButton";
 
 const MenuTable = (props) => {
 
 
     const [selected, setSelected] = useState(null)
+
+    const [dish, setDish] = useState(null)
 
     const col = [
         {title: 'Фото', dataIndex: 'photoId', key: 'ph', render: (data, record) => (
@@ -38,6 +42,10 @@ const MenuTable = (props) => {
                         setSelected(data.id)
                         setDeleteActive(true)
                     }}/>
+                    <EditButton event={() => {
+                        setActiveUpdate(true)
+                        setDish(record)
+                    }}/>
                 </div>
             ),
         }: null
@@ -45,14 +53,22 @@ const MenuTable = (props) => {
 
     const [deleteActive, setDeleteActive] = useState(false)
 
+    const [activeUpdate, setActiveUpdate] = useState(false)
+
     const deleteHandler = () => {
         props.delete(selected)
         setDeleteActive(false)
     }
 
+    const updateHandler = (data) => {
+        props.update(data)
+        setActiveUpdate(false)
+    }
+
     return (
         <>
             <DeleteModal close={() => setDeleteActive(false)} active={deleteActive} event={deleteHandler} title='блюдо'/>
+            <UpdateDish update={updateHandler} dish={dish} active={activeUpdate} create={() => console.log(true)} close={() => setActiveUpdate(false)}/>
             <Table
                 emptyText='Нет данных'
                 columns={col}

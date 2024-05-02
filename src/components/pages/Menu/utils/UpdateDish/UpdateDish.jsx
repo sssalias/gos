@@ -1,25 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Modal from "../../../../UI/Modal/Modal";
-import classes from './CreateDish.module.css'
-import {makeRequest} from "../../../../../services";
+import classes from './UpdateDish.module.css'
 import {useKeycloak} from "@react-keycloak/web";
 import MediaService from "../../../../../services/MediaService";
 
-const CreateDish = (props) => {
+const UpdateDish = (props) => {
 
-    const [data, setData] = useState(
-        {
-            title: null,
-            price: 0,
-            calories: 0,
-            proteins:0,
-            fats: 0,
-            carbohydrates: 0,
-            cookingTime: 0,
-            weight: null,
-            photoId: null
-        }
-    )
+    const [data, setData] = useState(null)
 
     const [file, setFile] = useState(null)
 
@@ -27,6 +14,9 @@ const CreateDish = (props) => {
 
     const [error, setError] = useState('')
 
+    useEffect(() => {
+        setData(props.dish)
+    }, [props.dish])
 
     const handleClick = (e) => {
         e.preventDefault()
@@ -35,9 +25,9 @@ const CreateDish = (props) => {
 
             if (file) {
                 MediaService.uploadFile(keycloak.token, {file})
-                    .then(res => props.create({...data, photoId: res.data.id}))
+                    .then(res => props.update({...data, photoId: res.data.id}))
             } else {
-                props.create(data)
+                props.update(data)
             }
 
             setData(
@@ -75,7 +65,7 @@ const CreateDish = (props) => {
 
 
     return (
-        <Modal title='Добавить блюдо' close={() => {
+        <Modal title='Обновить блюдо' close={() => {
             props.close()
             setError('')
         }} active={props.active}>
@@ -83,24 +73,27 @@ const CreateDish = (props) => {
                 <span>{error}</span>
             </div>
             <form className={classes.form}>
-                <input onChange={e => setData({...data, title: e.target.value})} type="text" required name='title'
+                <input value={data?.title} onChange={e => setData({...data, title: e.target.value})} type="text" required name='title'
                        placeholder='Название ⃰'/>
-                <input min={1} onChange={e => setData({...data, price: +e.target.value})} required name='price'
+                <input value={data?.price} min={1} onChange={e => setData({...data, price: +e.target.value})} required name='price'
                        placeholder='Цена (рубли:копейки) ⃰'/>
-                <input min={1} onChange={e => setData({...data, cookingTime: +e.target.value})} type="number" required
+                <input value={data?.cookingTime} min={1} onChange={e => setData({...data, cookingTime: +e.target.value})} type="number" required
                        name='cookingTime' placeholder='Время приготовления (минуты) ⃰'/>
-                <input onChange={e => setData({...data, weight: e.target.value.toString()})} type="text" required
+                <input value={data?.weight} onChange={e => setData({...data, weight: e.target.value.toString()})} type="text" required
                        name='weight' placeholder='Вес (граммы) ⃰'/>
-                <input onChange={e => setData({...data, calories: e.target.value})} type="number" name='calories'
+                <input value={data?.calories}  onChange={e => setData({...data, calories: e.target.value})} type="number" name='calories'
                        placeholder='Калории'/>
-                <input onChange={e => setData({...data, proteins: e.target.value})} type="number" name='proteins'
+                <input value={data?.proteins} onChange={e => setData({...data, proteins: e.target.value})} type="number" name='proteins'
                        placeholder='Белки'/>
-                <input onChange={e => setData({...data, fats: e.target.value})} type="number" name='fats'
+                <input value={data?.fats} onChange={e => setData({...data, fats: e.target.value})} type="number" name='fats'
                        placeholder='Жиры'/>
-                <input onChange={e => setData({...data, carbohydrates: e.target.value})} type="number"
+                <input value={data?.carbohydrates} onChange={e => setData({...data, carbohydrates: e.target.value})} type="number"
                        name='carbohydrates' placeholder='Углеводы'/>
                 <div>
-                    <label>Добавить фото</label>
+                    {/*<div className={classes.photo}>*/}
+                    {/*    <img src={MediaService.getFile(data?.photoId)} alt=""/>*/}
+                    {/*</div>*/}
+                    <label>Обновить фото</label>
                     <input type="file" onChange={e => setFile(e.target.files.item(0))}/>
                 </div>
                 <div>
@@ -112,4 +105,4 @@ const CreateDish = (props) => {
     );
 };
 
-export default CreateDish;
+export default UpdateDish;
