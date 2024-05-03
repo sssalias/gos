@@ -75,11 +75,11 @@ const UpdateDish = (props) => {
             <form className={classes.form}>
                 <input value={data?.title} onChange={e => setData({...data, title: e.target.value})} type="text" required name='title'
                        placeholder='Название ⃰'/>
-                <input value={data?.price} min={1} onChange={e => setData({...data, price: +e.target.value})} required name='price'
+                <input value={data?.price} min={1} onChange={e => setData({...data, price: +e.target.value})} required type='number' step='any' name='price'
                        placeholder='Цена (рубли:копейки) ⃰'/>
-                <input value={data?.cookingTime} min={1} onChange={e => setData({...data, cookingTime: +e.target.value})} type="number" required
+                <input value={data?.cookingTime} min={1} onChange={e => setData({...data, cookingTime: +e.target.value})} type="number" step='any'  required
                        name='cookingTime' placeholder='Время приготовления (минуты) ⃰'/>
-                <input value={data?.weight} onChange={e => setData({...data, weight: e.target.value.toString()})} type="text" required
+                <input value={data?.weight} onChange={e => setData({...data, weight: +e.target.value})} type="number" step='any'  required
                        name='weight' placeholder='Вес (граммы) ⃰'/>
                 <input value={data?.calories}  onChange={e => setData({...data, calories: e.target.value})} type="number" name='calories'
                        placeholder='Калории'/>
@@ -100,7 +100,7 @@ const UpdateDish = (props) => {
 
                 </div>
             </form>
-            <button className={classes.send__btn} onClick={handleClick}>Добавить</button>
+            <button className={classes.send__btn} onClick={handleClick}>Обновить</button>
         </Modal>
     );
 };
