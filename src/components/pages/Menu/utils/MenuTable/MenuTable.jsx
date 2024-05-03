@@ -25,8 +25,10 @@ const MenuTable = (props) => {
                     {/*    currentTarget.src = holder*/}
                     {/*}}*/}
                     {/*     alt=""/>*/}
-                    {data ? <img src={MediaService.getFile(data)} alt="err"/> : <img src={holder} alt="err"/>}
+                    {/*{data ? <img src={MediaService.getFile(data)} alt="err"/> : <img src={holder} alt="err"/>}*/}
+                    <img src={data ? MediaService.getFile(data) : holder} alt="err"/>
                 </div>
+
             )
         },
         {title: 'Название', dataIndex: 'title', key: 'a'},
