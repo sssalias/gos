@@ -85,19 +85,19 @@ const CreateDish = (props) => {
             <form className={classes.form}>
                 <input onChange={e => setData({...data, title: e.target.value})} type="text" required name='title'
                        placeholder='Название ⃰'/>
-                <input min={1} onChange={e => setData({...data, price: +e.target.value})} required name='price'
-                       placeholder='Цена (рубли:копейки) ⃰'/>
-                <input min={1} onChange={e => setData({...data, cookingTime: +e.target.value})} type="number" required
+                <input min={1} onChange={e => setData({...data, price: +e.target.value})} type='number' step='any' required name='price'
+                       placeholder='Цена (рубли.копейки) ⃰'/>
+                <input min={1} onChange={e => setData({...data, cookingTime: +e.target.value})} step='any'  type="number" required
                        name='cookingTime' placeholder='Время приготовления (минуты) ⃰'/>
-                <input onChange={e => setData({...data, weight: e.target.value.toString()})} type="text" required
+                <input onChange={e => setData({...data, weight: +e.target.value})} type="number" step='any' required
                        name='weight' placeholder='Вес (граммы) ⃰'/>
-                <input onChange={e => setData({...data, calories: e.target.value})} type="number" name='calories'
+                <input onChange={e => setData({...data, calories: +e.target.value})} type="number" name='calories'
                        placeholder='Калории'/>
-                <input onChange={e => setData({...data, proteins: e.target.value})} type="number" name='proteins'
+                <input onChange={e => setData({...data, proteins: +e.target.value})} type="number" name='proteins'
                        placeholder='Белки'/>
-                <input onChange={e => setData({...data, fats: e.target.value})} type="number" name='fats'
+                <input onChange={e => setData({...data, fats: +e.target.value})} type="number" name='fats'
                        placeholder='Жиры'/>
-                <input onChange={e => setData({...data, carbohydrates: e.target.value})} type="number"
+                <input onChange={e => setData({...data, carbohydrates: +e.target.value})} type="number"
                        name='carbohydrates' placeholder='Углеводы'/>
                 <div>
                     <label>Добавить фото</label>
