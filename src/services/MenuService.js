@@ -20,7 +20,7 @@ class MenuService {
     }
 
     clearMenu(token, menuId) {
-        return makeRequest(token, 'DELETE', `http://localhost:2000/categories/clear/by-menu/${menuId}`)
+        return makeRequest(token, 'DELETE', `${process.env.REACT_APP_API_HOST}/categories/clear/by-menu/${menuId}`)
     }
 
 }

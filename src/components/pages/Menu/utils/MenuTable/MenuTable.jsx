@@ -20,11 +20,12 @@ const MenuTable = (props) => {
     const col = [
         {title: 'Фото', dataIndex: 'photoId', key: 'ph', render: (data, record) => (
                 <div className={classes.photo}>
-                    <img src={MediaService.getFile(data)} onError={({currentTarget}) => {
-                        currentTarget.onerror = null
-                        currentTarget.src = holder
-                    }}
-                         alt=""/>
+                    {/*<img src={MediaService.getFile(data)} onError={({currentTarget}) => {*/}
+                    {/*    currentTarget.onerror = null*/}
+                    {/*    currentTarget.src = holder*/}
+                    {/*}}*/}
+                    {/*     alt=""/>*/}
+                    {data ? <img src={MediaService.getFile(data)} alt="err"/> : <img src={holder} alt="err"/>}
                 </div>
             )
         },
