@@ -3,12 +3,15 @@ import classes from './AppealsItem.module.css'
 import classNames from 'classnames'
 
 import caret from '../../../../../assets/img/icons/operations/caret.svg'
+// import deleteIcon from '../../../../../assets/img/icons/operations/delete.svg'
 import deleteIcon from '../../../../../assets/img/icons/operations/delete.svg'
 import DeleteModal from "../../../../UI/DeleteModal/DeleteModal";
+import {useKeycloak} from "@react-keycloak/web";
 
 
 const AppealsItem = ({updateStatus, feedbackEvent, event, ownerRole, number, status, ownerEmail, body, feedback, id}) => {
 
+    const {keycloak} = useKeycloak()
     const [active, setActive] = useState(false)
     const [deleteActive, setDeleteActive] = useState()
 
@@ -40,7 +43,7 @@ const AppealsItem = ({updateStatus, feedbackEvent, event, ownerRole, number, sta
                         <img className={classes.icon} src={caret} alt="asfsaf"/>
                     </button>
                     <button onClick={() => setDeleteActive(true)} className={classes.actions__button}>
-                        <img src={deleteIcon} alt=""/>
+                        <img className={classes.icon} src={deleteIcon} alt=""/>
                     </button>
                 </div>
 
