@@ -22,6 +22,8 @@ const AppealsItem = ({updateStatus, feedbackEvent, event, ownerRole, number, sta
         setDeleteActive(false)
     }
 
+    const statuses = ['NEW', 'Принято', 'Отклонено']
+
 
     return (
         <div className={classes.container}>
@@ -32,9 +34,12 @@ const AppealsItem = ({updateStatus, feedbackEvent, event, ownerRole, number, sta
                 <h3>e-mail: {ownerEmail}</h3>
                 <select value={status} onChange={e => updateStatus(id, e.target.value)}>
                     <option value={status}>{status}</option>
-                    <option value="NEW">NEW</option>
-                    <option value="Принято">Принято</option>
-                    <option value="Отклонено">Отклонено</option>
+                    {/*<option value="NEW">NEW</option>*/}
+                    {/*<option value="Принято">Принято</option>*/}
+                    {/*<option value="Отклонено">Отклонено</option>*/}
+                    {statuses.map(el => (
+                        status !== el ? <option key={el} value={el}>{el}</option> : null
+                    ))}
                 </select>
                 <h3>Роль: {ownerRole}</h3>
 
