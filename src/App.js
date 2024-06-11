@@ -12,7 +12,6 @@ import Appeals from "./components/pages/appeals/Appeals";
 import AuthProvider from './components/AuthProvider/AuthProvider';
 const App = () => {
 
-    console.log(process.env)
 
     const paths = [
         {path: '/*', element: <MenuPage/>, index: true},
@@ -23,7 +22,11 @@ const App = () => {
     ]
 
     return (
-        <ReactKeycloakProvider authClient={keycloak} initOptions={{onLoad: 'login-required'}}>
+        <ReactKeycloakProvider authClient={keycloak} initOptions={{
+            onLoad: "login-required",
+            SilentCheckSsoRedirectUri: window.location.origin + "/silent-check-sso.html",
+            checkLoginIframe: false,
+        }}>
             <AuthProvider>
                 <Routes>
                     {paths.map(({path, element, index}) => <Route index={index} path={path} element={element} key={path}/>)}

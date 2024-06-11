@@ -1,16 +1,63 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Table from "rc-table";
 import DeleteButton from "../../../UI/Table/Operations/DeleteButton";
 import MoreButton from "../../../UI/Table/Operations/MoreButton";
 import OrderModal from "../OrderModal/OrderModal";
 import { format } from 'date-fns';
 
+
+import classes from './OrdersTable.module.css'
+
 const OrdersTable = (props) => {
 
     const [activeInfo, setActiveInfo] = useState(false)
     const [activeData, setActiveData] = useState({})
 
+    const [filters, setFilters] = useState(
+        {
+            status: 'Все',
+            price: -1,
+            time: -1
+        }
+    )
 
+    const [data, setData] = useState([])
+    const [filteredData, setFilteredData] = useState([])
+
+    useEffect(() => {
+        setData(data)
+        setFilteredData(data)
+    }, [props.data]);
+
+
+
+    useEffect(() => {
+        if (filters.status === 'Все') {
+            setFilteredData([...data])
+            console.log(data)
+        }
+        if (filters.status !== 'Все') {
+            setFilteredData( [...filteredData.filter(el => el.status === filters.status)])
+        }
+    }, [filters.status]);
+    useEffect(() => {
+        if (filters.price === 1 ) {
+            console.log(filters.price)
+            setFilteredData([...filteredData.sort((a, b) => +a.price - +b.price)])
+        }
+        if (filters.price === 0) {
+            setFilteredData([...filteredData.sort((a, b) => +b.price - +a.price)])
+        }
+    }, [filters.price, filteredData])
+
+    useEffect(() => {
+        if (filters.time === 1 ) {
+            setFilteredData([...filteredData.sort((a, b) => +a.submissionTime - +b.submissionTime)])
+        }
+        if (filters.price === 0) {
+            setFilteredData([...filteredData.sort((a, b) => +b.submissionTime - +a.submissionTime)])
+        }
+    }, [filters.time, filteredData])
     const col = [
         {title: 'Номер заказа', dataIndex: 'number', key: 'a'},
         {title: 'Цена', dataIndex: 'price', key: 'b'},
@@ -57,11 +104,42 @@ const OrdersTable = (props) => {
     return (
         <>
             <OrderModal data={activeData} close={() => setActiveInfo(false)} active={activeInfo}/>
-            <Table
-                emptyText='Нет данных'
-                columns={col}
-                data={props.data}
-            />
+            <div className={classes.filter}>
+                <div>
+                    <span>Статус </span>
+                    <select value={filters.status} onChange={e => setFilters({...filters, status: e.target.value})}>
+                        <option value="Все">Все</option>
+                        <option value="Готовим">Готовим</option>
+                        <option value="Готов">Готов</option>
+                        <option value="Доставлен">Доставлен</option>
+                    </select>
+                </div>
+
+                <div>
+                    <span>Цена </span>
+                    <select value={filters.price} onChange={e => setFilters({...filters, price: +e.target.value})}>
+                        <option value="-1">-</option>
+                        <option value="1">По возрастанию</option>
+                        <option value="0">По убыванию</option>
+                    </select>
+                </div>
+                <div>
+                    <span>Дата </span>
+                    <select value={filters.time} onChange={e => setFilters({...filters, price: +e.target.value})}>
+                        <option value="-1">-</option>
+                        <option value="1">По возрастанию</option>
+                        <option value="0">По убыванию</option>
+                    </select>
+                </div>
+            </div>
+            <div className={classes.container}>
+                <Table
+                    emptyText='Нет данных'
+                    columns={col}
+                    // data={props.data}
+                    data={filteredData}
+                />
+            </div>
         </>
     );
 };
