@@ -7,9 +7,10 @@ import caret from '../../../../../assets/img/icons/operations/caret.svg'
 import deleteIcon from '../../../../../assets/img/icons/operations/delete.svg'
 import DeleteModal from "../../../../UI/DeleteModal/DeleteModal";
 import {useKeycloak} from "@react-keycloak/web";
+import MediaService from "../../../../../services/MediaService";
 
 
-const AppealsItem = ({updateStatus, feedbackEvent, event, ownerRole, number, status, ownerEmail, body, feedback, id}) => {
+const AppealsItem = ({updateStatus, feedbackEvent, event, photoId, ownerRole, number, status, ownerEmail, body, feedback, id}) => {
 
     const {keycloak} = useKeycloak()
     const [active, setActive] = useState(false)
@@ -56,6 +57,10 @@ const AppealsItem = ({updateStatus, feedbackEvent, event, ownerRole, number, sta
             </div>
             <div className={classNames(classes.content, active ? classes.content__active : null)} >
                 <div className={classes.body}>
+                        {photoId ?
+                            <div className={classes.photo}>
+                                <img src={MediaService.getFile(photoId)} alt="Нет фото"/>
+                            </div>: null}
                     <p>{body}</p>
                 </div>
                 <h4>Ответ: {feedback}</h4>

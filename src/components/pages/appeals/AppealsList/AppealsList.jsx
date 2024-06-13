@@ -101,7 +101,7 @@ const AppealsList = () => {
                     </> : null}
                 </select>
             </div>
-            {filerAppeals.map(el => <AppealsItem updateStatus={updateStatus} feedbackEvent={sendFeedback} ownerRole={el.ownerRoles[0]} event={deleteAppeal} status={el.status} id={el.id} key={el.id} number={el.number} ownerEmail={el.ownerEmail} body={el.body} feedback={el.feedback !== null ? el.feedback.body : null}/>)}
+            {filerAppeals.map(el => <AppealsItem photoId={el.photoId} updateStatus={updateStatus} feedbackEvent={sendFeedback} ownerRole={el.ownerRoles[0]} event={deleteAppeal} status={el.status} id={el.id} key={el.id} number={el.number} ownerEmail={el.ownerEmail} body={el.body} feedback={el.feedback !== null ? el.feedback.body : null}/>)}
         </div>
     );
 };
