@@ -36,7 +36,7 @@ const Category = (props) => {
         <div className={classes.container}>
             <DeleteModal title='все позиции меню' active={activeDeleteModal} close={() => setActiveDeleteModal(false)} event={clearMenu}/>
             <div className={classes.header}>
-                <h1>{props.title} {format(props.dateTo ? props.dateTo : (props.menu.type === 'today' ? new Date() : new Date(+new Date() + 86400000)), 'dd.MM.yyyy')}</h1>
+                <h1>{props.title} {format(props.dateTo, 'dd.MM.yyyy')}</h1>
                 <button onClick={() => setActiveDeleteModal(true)}>{FaTrash()}</button>
             </div>
             <CategoriesList id={props.id}/>
