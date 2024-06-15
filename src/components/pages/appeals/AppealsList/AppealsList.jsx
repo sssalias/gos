@@ -20,9 +20,6 @@ const AppealsList = () => {
     const roles = jwtDecode(keycloak.token).resource_access["kozodoy-client"].roles
 
     const getAppeals = () => {
-
-        console.log(keycloak.token)
-
         AppealsService.getAppeals(keycloak.token)
             .then(res => {
                 setAppeals(res.data)

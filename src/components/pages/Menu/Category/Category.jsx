@@ -32,7 +32,6 @@ const Category = (props) => {
             .catch(err => console.log(err))
     }
 
-    console.log(props)
 
     return (
         <div className={classes.container}>
