@@ -32,11 +32,13 @@ const Category = (props) => {
             .catch(err => console.log(err))
     }
 
+    console.log(props)
+
     return (
         <div className={classes.container}>
             <DeleteModal title='все позиции меню' active={activeDeleteModal} close={() => setActiveDeleteModal(false)} event={clearMenu}/>
             <div className={classes.header}>
-                <h1>{props.title} {props.dateTo ? format(props.dateTo, 'dd.MM.yyyy') : null}</h1>
+                <h1>{props.title} {props.menu.dateTo}</h1>
                 <button onClick={() => setActiveDeleteModal(true)}>{FaTrash()}</button>
             </div>
             <CategoriesList id={props.id}/>
