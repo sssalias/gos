@@ -25,10 +25,9 @@ const OrdersTable = (props) => {
     const [filteredData, setFilteredData] = useState([])
 
     useEffect(() => {
-        setData(data)
-        setFilteredData(data)
+        setData(props.data)
+        setFilteredData(props.data)
     }, [props.data]);
-
 
 
     useEffect(() => {
