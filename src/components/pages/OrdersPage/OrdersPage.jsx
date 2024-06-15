@@ -25,6 +25,9 @@ const MenuPage = () => {
     useEffect(() => {
         if (initialized) {
             getOrders()
+            setInterval(() => {
+                getOrders()
+            }, 5000)
         }
     }, [setData, initialized]);
 
