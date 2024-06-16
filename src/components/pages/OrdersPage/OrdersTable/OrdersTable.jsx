@@ -33,12 +33,27 @@ const OrdersTable = (props) => {
     useEffect(() => {
         if (filters.status === 'Все') {
             setFilteredData([...data])
-            console.log(data)
         }
         if (filters.status !== 'Все') {
-            setFilteredData( [...filteredData.filter(el => el.status === filters.status)])
+            setFilteredData( [...data.filter(el => el.status === filters.status)])
         }
-    }, [filters.status]);
+    }, [filters.status, filteredData, data]);
+
+    // useEffect(() => {
+    //     if (filters.status === 'Все' ) {
+    //         setFilteredData(data)
+    //     }
+    //     if (filters.status === 'Готовим') {
+    //         setFilteredData(data.filter(el => el.status === 'Готовим'))
+    //     }
+    //     if (filters.status === 'Готов') {
+    //         setFilteredData(data.filter(el => el.status === 'Готов'))
+    //     }
+    //     if (filters.status === 'Доставлен') {
+    //         setFilteredData(data.filter(el => el.status === 'Доставлен'))
+    //     }
+    // }, [filters.status, filteredData, data])
+
     useEffect(() => {
         if (filters.price === 1 ) {
             console.log(filters.price)
@@ -47,16 +62,16 @@ const OrdersTable = (props) => {
         if (filters.price === 0) {
             setFilteredData([...filteredData.sort((a, b) => +b.price - +a.price)])
         }
-    }, [filters.price, filteredData])
+    }, [filters.price, filteredData, data])
 
     useEffect(() => {
         if (filters.time === 1 ) {
             setFilteredData([...filteredData.sort((a, b) => +a.submissionTime - +b.submissionTime)])
         }
-        if (filters.price === 0) {
+        if (filters.time === 0) {
             setFilteredData([...filteredData.sort((a, b) => +b.submissionTime - +a.submissionTime)])
         }
-    }, [filters.time, filteredData])
+    }, [filters.time, filteredData, data])
     const col = [
         {title: 'Номер заказа', dataIndex: 'number', key: 'a'},
         {title: 'Цена', dataIndex: 'price', key: 'b'},

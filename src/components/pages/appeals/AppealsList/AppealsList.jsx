@@ -19,6 +19,7 @@ const AppealsList = () => {
 
     const roles = jwtDecode(keycloak.token).resource_access["kozodoy-client"].roles
 
+    console.log(keycloak.token)
 
     const getAppeals = () => {
         AppealsService.getAppeals(keycloak.token)
@@ -102,7 +103,9 @@ const AppealsList = () => {
                     </> : null}
                 </select>
             </div>
-            {filerAppeals.map(el => <AppealsItem photoId={el.photoId} updateStatus={updateStatus} feedbackEvent={sendFeedback} ownerRole={el.ownerRoles[0]} event={deleteAppeal} status={el.status} id={el.id} key={el.id} number={el.number} ownerEmail={el.ownerEmail} body={el.body} feedback={el.feedback !== null ? el.feedback.body : null}/>)}
+            {filerAppeals
+                .reverse()
+                .map(el => <AppealsItem photoId={el.photoId} updateStatus={updateStatus} feedbackEvent={sendFeedback} ownerRole={el.ownerRoles[0]} event={deleteAppeal} status={el.status} id={el.id} key={el.id} number={el.number} ownerEmail={el.ownerEmail} body={el.body} feedback={el.feedback !== null ? el.feedback.body : null}/>)}
         </div>
     );
 };
