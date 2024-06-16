@@ -139,7 +139,7 @@ const OrdersTable = (props) => {
                 </div>
                 <div>
                     <span>Дата </span>
-                    <select value={filters.time} onChange={e => setFilters({...filters, price: +e.target.value})}>
+                    <select value={filters.time} onChange={e => setFilters({...filters, time: +e.target.value})}>
                         <option value="-1">-</option>
                         <option value="1">По возрастанию</option>
                         <option value="0">По убыванию</option>
