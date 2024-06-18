@@ -66,10 +66,10 @@ const OrdersTable = (props) => {
 
     useEffect(() => {
         if (filters.time === 1 ) {
-            setFilteredData([...filteredData.sort((a, b) => +a.submissionTime - +b.submissionTime)])
+            setFilteredData([...filteredData.sort((a, b) => new Date(a.submissionTime) - new Date(b.submissionTime))])
         }
         if (filters.time === 0) {
-            setFilteredData([...filteredData.sort((a, b) => +b.submissionTime - +a.submissionTime)])
+            setFilteredData([...filteredData.sort((a, b) => new Date(b.submissionTime) - new Date(a.submissionTime))])
         }
     }, [filters.time, filteredData, data])
     const col = [
