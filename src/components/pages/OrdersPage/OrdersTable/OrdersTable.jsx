@@ -17,7 +17,7 @@ const OrdersTable = (props) => {
         {
             status: 'Все',
             price: -1,
-            time: -1
+            time: 1
         }
     )
 
@@ -140,7 +140,6 @@ const OrdersTable = (props) => {
                 <div>
                     <span>Дата </span>
                     <select value={filters.time} onChange={e => setFilters({...filters, time: +e.target.value})}>
-                        <option value="-1">-</option>
                         <option value="1">По возрастанию</option>
                         <option value="0">По убыванию</option>
                     </select>
