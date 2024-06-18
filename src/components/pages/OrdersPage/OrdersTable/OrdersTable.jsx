@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from "rc-table";
 import DeleteButton from "../../../UI/Table/Operations/DeleteButton";
 import MoreButton from "../../../UI/Table/Operations/MoreButton";
@@ -17,7 +17,7 @@ const OrdersTable = (props) => {
         {
             status: 'Все',
             price: -1,
-            time: 1
+            time: -1
         }
     )
 
@@ -35,27 +35,12 @@ const OrdersTable = (props) => {
             setFilteredData([...data])
         }
         if (filters.status !== 'Все') {
-            setFilteredData( [...data.filter(el => el.status === filters.status)])
+            setFilteredData([...data.filter(el => el.status === filters.status)])
         }
     }, [filters.status, filteredData, data]);
 
-    // useEffect(() => {
-    //     if (filters.status === 'Все' ) {
-    //         setFilteredData(data)
-    //     }
-    //     if (filters.status === 'Готовим') {
-    //         setFilteredData(data.filter(el => el.status === 'Готовим'))
-    //     }
-    //     if (filters.status === 'Готов') {
-    //         setFilteredData(data.filter(el => el.status === 'Готов'))
-    //     }
-    //     if (filters.status === 'Доставлен') {
-    //         setFilteredData(data.filter(el => el.status === 'Доставлен'))
-    //     }
-    // }, [filters.status, filteredData, data])
-
     useEffect(() => {
-        if (filters.price === 1 ) {
+        if (filters.price === 1) {
             console.log(filters.price)
             setFilteredData([...filteredData.sort((a, b) => +a.price - +b.price)])
         }
@@ -65,32 +50,34 @@ const OrdersTable = (props) => {
     }, [filters.price, filteredData, data])
 
     useEffect(() => {
-        if (filters.time === 1 ) {
+        if (filters.time === 1) {
             setFilteredData([...filteredData.sort((a, b) => new Date(a.submissionTime) - new Date(b.submissionTime))])
         }
-        if (filters.time === 0) {
+        if (filters.time === 0 || filters.status === -1) {
             setFilteredData([...filteredData.sort((a, b) => new Date(b.submissionTime) - new Date(a.submissionTime))])
         }
     }, [filters.time, filteredData, data])
     const col = [
-        {title: 'Номер заказа', dataIndex: 'number', key: 'a'},
-        {title: 'Цена', dataIndex: 'price', key: 'b'},
-        {title: 'Кол-во персон', dataIndex: 'countOfPersons', key: 'd'},
-        {title: 'Место подачи', dataIndex: 'placeOfDelivery', key: 'e'},
-        {title: 'Дата и время подачи', dataIndex: 'submissionTime', key: 'f', render: (data, record) => (
-            <span>
-                {format(data, 'dd.MM.yyyy kk:mm')}
-            </span>
-            )},
-        {title: 'Пожелания к заказу', dataIndex: 'wishes', key: 'g'},
-        {title: 'Метод оплаты', dataIndex: 'paymentMethod', key: 'j'},
+        { title: 'Номер заказа', dataIndex: 'number', key: 'a' },
+        { title: 'Цена', dataIndex: 'price', key: 'b' },
+        { title: 'Кол-во персон', dataIndex: 'countOfPersons', key: 'd' },
+        { title: 'Место подачи', dataIndex: 'placeOfDelivery', key: 'e' },
+        {
+            title: 'Дата и время подачи', dataIndex: 'submissionTime', key: 'f', render: (data, record) => (
+                <span>
+                    {format(data, 'dd.MM.yyyy kk:mm')}
+                </span>
+            )
+        },
+        { title: 'Пожелания к заказу', dataIndex: 'wishes', key: 'g' },
+        { title: 'Метод оплаты', dataIndex: 'paymentMethod', key: 'j' },
         {
             title: 'Статус заказа',
             dataIndex: 'status',
             key: 'h',
             render: (data, record) => (
                 <select value={data} onClick={() => console.log(data)} onChange={(e) => {
-                    props.update(record.id, e.target.value, {...record})
+                    props.update(record.id, e.target.value, { ...record })
                 }}>
                     <option value="Готовим">Готовим</option>
                     <option value="Готов">Готов</option>
@@ -103,12 +90,12 @@ const OrdersTable = (props) => {
             dataIndex: '',
             key: 'j',
             render: (data, record) => (
-                <div style={{display: 'flex', gap: '10px'}}>
+                <div style={{ display: 'flex', gap: '10px' }}>
                     <MoreButton event={() => {
-                                setActiveInfo(true)
-                                setActiveData(data)
-                            }
-                        }
+                        setActiveInfo(true)
+                        setActiveData(data)
+                    }
+                    }
                     />
                 </div>
             ),
@@ -117,11 +104,11 @@ const OrdersTable = (props) => {
 
     return (
         <>
-            <OrderModal data={activeData} close={() => setActiveInfo(false)} active={activeInfo}/>
+            <OrderModal data={activeData} close={() => setActiveInfo(false)} active={activeInfo} />
             <div className={classes.filter}>
                 <div>
                     <span>Статус </span>
-                    <select value={filters.status} onChange={e => setFilters({...filters, status: e.target.value})}>
+                    <select value={filters.status} onChange={e => setFilters({ ...filters, status: e.target.value })}>
                         <option value="Все">Все</option>
                         <option value="Готовим">Готовим</option>
                         <option value="Готов">Готов</option>
@@ -131,7 +118,7 @@ const OrdersTable = (props) => {
 
                 <div>
                     <span>Цена </span>
-                    <select value={filters.price} onChange={e => setFilters({...filters, price: +e.target.value})}>
+                    <select value={filters.price} onChange={e => setFilters({ ...filters, price: +e.target.value, time: -1 })}>
                         <option value="-1">-</option>
                         <option value="1">По возрастанию</option>
                         <option value="0">По убыванию</option>
@@ -139,9 +126,10 @@ const OrdersTable = (props) => {
                 </div>
                 <div>
                     <span>Дата </span>
-                    <select value={filters.time} onChange={e => setFilters({...filters, time: +e.target.value})}>
-                        <option value="1">По возрастанию</option>
+                    <select value={filters.time} onChange={e => setFilters({ ...filters, time: +e.target.value, price: -1 })}>
+                        <option value="-1">-</option>
                         <option value="0">По убыванию</option>
+                        <option value="1">По возрастанию</option>
                     </select>
                 </div>
             </div>
