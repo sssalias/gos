@@ -1,0 +1,19 @@
+.container {
+    padding: 25px 75px 25px 30px;
+    background-color: var(--main-blue);
+    height: calc(100vh - 100px);
+    width: 200px;
+    border-radius: 10px;
+    position: fixed;
+    box-shadow: 2px 4px 15px 0 rgba(230, 230, 230, 0.5);
+    /* position: sticky; */
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+}
