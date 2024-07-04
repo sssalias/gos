@@ -10,9 +10,6 @@ type PropsType = {
 }
 
 const GroupNewsModal = ({active, close, data}:PropsType) => {
-
-    console.log(data)
-    
     return (
         <ModalTemplate title={`Новость: ${data.forUserTypes}`} active={active} close={close}>
 			<h1>{data.title}</h1>

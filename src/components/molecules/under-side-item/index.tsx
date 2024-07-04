@@ -35,7 +35,6 @@ const UnderSideItem = ({icon}:PropsType) => {
     })
 
     useEffect(() => {
-        console.log(data)
         for (let item of data) {
             if (item.type === 'today') {
                 setToday(true)

@@ -9,6 +9,7 @@ type FiltersType = {
 }
 
 interface AppealsState {
+    notifications: number
     data: any[]
     filteredData: any[],
     filters: FiltersType
@@ -16,6 +17,7 @@ interface AppealsState {
 
 
 interface AppealsActions {
+    setNotifications: (count: number) => void
     setData: (data: any[]) => void
     updateData: (token:string) => void
     setFilteredData: (data: any[]) => void
@@ -24,15 +26,19 @@ interface AppealsActions {
 
 
 export const useAppealsStore = create<AppealsActions & AppealsState>()(immer(set => ({
+    notifications: 0,
     data: [],
-    setData: (data) => {
-        set({data: data})
+    setData: (data) => {    
+        set({ data: data })
     },
     updateData: async (token) => {
         if (token.length !== 0) {
             const {data} = await AppealsService.get(token)
             set({data: data})
         }
+    },
+    setNotifications: (count) => {
+        set({notifications: count})
     },
     filteredData: [],
     filters: {
@@ -44,5 +50,5 @@ export const useAppealsStore = create<AppealsActions & AppealsState>()(immer(set
     },
     setFilters: (filters) => {
         set({filters: filters})
-    }
+    },
 })))

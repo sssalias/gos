@@ -22,5 +22,5 @@ export const useDishesStore = create<DishesActions & DishesState>()(immer(set =>
     },
     setData: (data:any[]) => {
         set({data: data})
-    }
+    },
 })))

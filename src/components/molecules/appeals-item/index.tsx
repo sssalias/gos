@@ -25,10 +25,7 @@ type PropsType = {
     comments: any[]
 }
 
-const AppealsItem = ({photoId, ownerRole, number, status, ownerEmail, body, id, comments}:PropsType) => {
-
-    console.log(comments)
-    
+const AppealsItem = ({photoId, ownerRole, number, status, ownerEmail, body, id, comments}:PropsType) => {    
     const [active, setActive] = useState(false)
 
     const [data, setData] = useState({

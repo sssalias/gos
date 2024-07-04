@@ -16,8 +16,6 @@ export const useUserStore = create<UserActions & UserState>()(immer(set => ({
     isAuth: false,
     token: '',
     setAuth: (token) => {
-        console.log(token)
-        
         set({isAuth: true, token: token})
     },
     getData: () => {

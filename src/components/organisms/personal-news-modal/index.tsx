@@ -17,9 +17,6 @@ const PersonalNewsModal = ({active, close, userId}:PropsType) => {
     const {setData} = usePersonalNewsStore()
     
     useEffect(() => {
-        console.log('asfasfasfasfsafasfasfas');
-        
-
         const getData = async () => {
             if (token.length !== 0) {
                 const {data} = await NewsService.getPersonal(token)

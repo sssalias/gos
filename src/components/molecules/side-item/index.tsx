@@ -15,9 +15,10 @@ type PropsType = {
     event?: any,
     children: React.ReactNode,
     active?: boolean
+    notifications?: number
 }
 
-const SideItem = ({link, add, icon, move, event, children, active}: PropsType) => {
+const SideItem = ({link, add, icon, move, event, children, active, notifications}: PropsType) => {
 
 
     const checkUrls = (link:string | undefined) => {
@@ -25,7 +26,6 @@ const SideItem = ({link, add, icon, move, event, children, active}: PropsType) =
     }
 
     const [isLink] = useState(checkUrls(link))
-
 
     return (
         //@ts-ignore
@@ -38,13 +38,23 @@ const SideItem = ({link, add, icon, move, event, children, active}: PropsType) =
                 :
                 null
             }
-            <span style={add ? {fontSize: 20} : undefined}>{children}</span>
+            <div className={classes.text} style={add ? {fontSize: 20} : undefined}>
+                {children}
+                {notifications !== 0 && notifications !== undefined ? 
+                    <div className={classes.notifications}>
+                        {notifications}
+                    </div>
+                    : 
+                    null
+                }
+            </div>
             {move ?
                 <div className={classNames(classes.move, active ? classes.move__active : null)}>
                     <img src={move} alt="err"/>
                 </div>
                 : null
             }
+
         </div>
     </Link>
     )

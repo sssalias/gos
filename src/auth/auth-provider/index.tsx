@@ -15,31 +15,26 @@ const AuthProvider = ({children}: PropsType) => {
 
     const {setAuth} = useUserStore()
     const {keycloak, initialized} = useKeycloak()
+    
 
     useEffect(() => {
         if (initialized && keycloak.token) {
             setAuth(keycloak.token)
         }
     }, [initialized, keycloak.token])
-
+    
     function intervall(){
-        keycloak.updateToken(5).then(function(refreshed) {
-               if (refreshed) {
-                if(keycloak.token)
+        keycloak.updateToken(5).then(function() {
+            if(keycloak.token)
                     {
                         setAuth(keycloak.token)
+                        
                     }
-               } else {
-                console.log('login is still valid');
-                
                }
-             }).catch(function() {
-                
-                   });
-       
+            )
        }
              
-    setInterval(intervall, 3000);
+    setInterval(intervall, 2000);
 
     
     const [hasRoot, setHasRoot] = useState(true)

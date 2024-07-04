@@ -12,7 +12,8 @@ type FiltersType = {
 interface OrdersState {
     data: any[],
     filters: FiltersType,
-    filteredData: any[]
+    filteredData: any[],
+    notifications: number
 }
 
 
@@ -21,6 +22,7 @@ interface OrdersActions {
     setData: (data:any[]) => void
     setFilters: (filters: object) => any
     setFilteredData: (data:any) => void
+    setNotifications: (count:number) => void
 }
 
 export const useOrdersStore = create<OrdersActions & OrdersState>()(immer(set => ({
@@ -45,5 +47,9 @@ export const useOrdersStore = create<OrdersActions & OrdersState>()(immer(set =>
     },
     setFilteredData: (data) => {
         set({filteredData: data})
+    },
+    notifications: 0,
+    setNotifications: (count) => {
+        set({notifications: count})
     }
 })))
