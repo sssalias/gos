@@ -128,7 +128,6 @@ const OrdersTable = () => {
             setFilteredData([...filteredData.sort((a, b) => new Date(b.submissionTime) - new Date(a.submissionTime))])
         }
     }, [filters.price, data])
-    
 
     return (
         <>

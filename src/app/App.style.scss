@@ -119,14 +119,15 @@ div, table {
     thead {
       color: white;
       background-color: $main-blue-color;
+      position: sticky;
+      top: 0;
+      z-index: 100000;
     }
     tbody {
       transform: translate(0, 15px);
       border-radius: 15px;
       box-shadow: 0 0 2px 0 lightgray;
-    }
-  
-  
+    }  
     th {
       &:nth-child(1) {
         border-radius: 15px 0 0 15px;

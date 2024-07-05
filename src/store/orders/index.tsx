@@ -30,11 +30,11 @@ export const useOrdersStore = create<OrdersActions & OrdersState>()(immer(set =>
     updateData: async (token) => {
         if (token.length !== 0) {
             const {data} = await OrdersService.get(token)
-            set({data: data})
+            set({data: data.reverse()})
         }
      },
     setData: (data:any[]) => {
-        set({data: data})
+        set({data: data.reverse()})
     },
     filters: {
         status: 'Все',
