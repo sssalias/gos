@@ -6,6 +6,8 @@ import { useUserStore } from 'src/store/user'
 import useSound from 'use-sound'
 
 import sound from 'src/assets/sound.mp3'
+import { useAppealsStore } from 'src/store/appeals'
+import { useOrdersStore } from 'src/store/orders'
 
 type PropsType = {
     children: ReactNode
@@ -25,6 +27,16 @@ const Toast = ({title, body}: any) => {
 const NotificationsProvider = ({children}:PropsType) => {
 
     const {token} = useUserStore()
+    
+    // appeals
+    const updateAppeals = useAppealsStore(state => state.updateData)
+    // orders
+    const updateOrders = useOrdersStore(state => state.updateData)
+
+    const updateData = async () => {
+        await updateAppeals(token)
+        await updateOrders(token)
+    } 
 
     useEffect(() => {
         if (token.length !== 0) {
@@ -42,6 +54,7 @@ const NotificationsProvider = ({children}:PropsType) => {
                     transition: Bounce,
                     })
             })
+            updateData()
         }
       }, [token])
     return (

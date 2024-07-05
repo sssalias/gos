@@ -6,7 +6,7 @@ import { authClient } from './auth/kk-config'
 import AuthProvider from './auth/auth-provider'
 import { BrowserRouter } from 'react-router-dom'
 import NotificationsProvider from './api/providers/notifications-provider'
-import LongPullingProvider from './api/providers/long-pulling-provider'
+// import LongPullingProvider from './api/providers/long-pulling-provider'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ReactKeycloakProvider authClient={authClient} initOptions={{onLoad: "login-required"}}>
@@ -14,9 +14,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <AuthProvider>
         <BrowserRouter>
           <NotificationsProvider>
-            <LongPullingProvider>
+            {/* <LongPullingProvider> */}
               <App/>
-            </LongPullingProvider>
+            {/* </LongPullingProvider> */}
           </NotificationsProvider>
         </BrowserRouter>
       </AuthProvider>
