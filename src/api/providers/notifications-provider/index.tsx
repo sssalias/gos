@@ -16,17 +16,6 @@ type PropsType = {
 }
 
 const Toast = ({title, body}: any) => {
-    const [play] = useSound(sound, {volume: 0.1})
-    play()
-    return (
-            <div>
-                <h2>{title}</h2>
-                <p>{body}</p>
-            </div>
-    )
-}
-
-const NotificationsProvider = ({children}:PropsType) => {
 
     const {token} = useUserStore()
     
@@ -42,11 +31,32 @@ const NotificationsProvider = ({children}:PropsType) => {
         await updateOrders(resOrders.data)
     } 
 
+
+
+
+    const [play] = useSound(sound, {volume: 0.1})
+    play()
+
+    useEffect(() => {
+        updateData()
+    }, [])
+
+    return (
+            <div>
+                <h2>{title}</h2>
+                <p>{body}</p>
+            </div>
+    )
+}
+
+const NotificationsProvider = ({children}:PropsType) => {
+
+    const {token} = useUserStore()
+    
     useEffect(() => {
         if (token.length !== 0) {
             requestPermission(token)
             onMessage(messaging, (payload) => {
-                updateData()
                 toast.info(<Toast title={payload.notification?.title} body={payload.notification?.body} />, {
                     position: "bottom-right",
                     autoClose: 5000,
