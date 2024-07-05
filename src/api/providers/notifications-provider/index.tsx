@@ -40,6 +40,7 @@ const NotificationsProvider = ({children}:PropsType) => {
 
     useEffect(() => {
         if (token.length !== 0) {
+            updateData()
             requestPermission(token)
             onMessage(messaging, (payload) => {
                 toast.info(<Toast title={payload.notification?.title} body={payload.notification?.body} />, {
@@ -54,7 +55,6 @@ const NotificationsProvider = ({children}:PropsType) => {
                     transition: Bounce,
                     })
             })
-            updateData()
         }
       }, [token])
     return (
