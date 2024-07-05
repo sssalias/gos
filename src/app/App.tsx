@@ -7,6 +7,9 @@ import AppealsPage from 'src/components/pages/appeals-page'
 import { Route, Routes } from 'react-router-dom'
 import NewsPage from 'src/components/pages/news-page'
 
+
+import 'react-toastify/dist/ReactToastify.css'
+
 const App = () => {
 
     const paths = [
