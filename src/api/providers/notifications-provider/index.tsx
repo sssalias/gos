@@ -11,21 +11,26 @@ type PropsType = {
     children: ReactNode
 }
 
+const Toast = ({title, body}: any) => {
+    const [play] = useSound(sound, {volume: 0.1})
+    play()
+    return (
+            <div>
+                <h2>{title}</h2>
+                <p>{body}</p>
+            </div>
+    )
+}
+
 const NotificationsProvider = ({children}:PropsType) => {
 
     const {token} = useUserStore()
-
-    const [play] = useSound(sound, {volume: 0.1})
 
     useEffect(() => {
         if (token.length !== 0) {
             requestPermission(token)
             onMessage(messaging, (payload) => {
-                play()
-                toast.info(<div>
-                    <h2>{payload.notification?.title}</h2>
-                    <p>{payload.notification?.body}</p>
-                </div>, {
+                toast.info(<Toast title={payload.notification?.title} body={payload.notification?.body} />, {
                     position: "bottom-right",
                     autoClose: 5000,
                     hideProgressBar: true,
