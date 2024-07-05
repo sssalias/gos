@@ -8,6 +8,8 @@ import useSound from 'use-sound'
 import sound from 'src/assets/sound.mp3'
 import { useAppealsStore } from 'src/store/appeals'
 import { useOrdersStore } from 'src/store/orders'
+import AppealsService from 'src/api/services/AppealsService'
+import OrdersService from 'src/api/services/OrdersService'
 
 type PropsType = {
     children: ReactNode
@@ -29,19 +31,19 @@ const NotificationsProvider = ({children}:PropsType) => {
     const {token} = useUserStore()
     
     // appeals
-    const updateAppeals = useAppealsStore(state => state.updateData)
+    const updateAppeals = useAppealsStore(state => state.setData)
     // orders
-    const updateOrders = useOrdersStore(state => state.updateData)
+    const updateOrders = useOrdersStore(state => state.setData)
 
-    const updateData = () => {
-        alert('Хуй')
-        updateAppeals(token)
-        updateOrders(token)
+    const updateData = async () => {
+        const resAppeals = await AppealsService.get(token)
+        const resOrders = await OrdersService.get(token)
+        updateAppeals(resAppeals.data)
+        updateOrders(resOrders.data)
     } 
 
     useEffect(() => {
         if (token.length !== 0) {
-            updateData()
             requestPermission(token)
             onMessage(messaging, (payload) => {
                 toast.info(<Toast title={payload.notification?.title} body={payload.notification?.body} />, {
@@ -56,6 +58,7 @@ const NotificationsProvider = ({children}:PropsType) => {
                     transition: Bounce,
                     })
             })
+            updateData()
         }
       }, [token])
     return (

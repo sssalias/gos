@@ -34,6 +34,7 @@ export const useOrdersStore = create<OrdersActions & OrdersState>()(immer(set =>
         }
      },
     setData: (data:any[]) => {
+        console.log(data)
         set({data: data.reverse()})
     },
     filters: {

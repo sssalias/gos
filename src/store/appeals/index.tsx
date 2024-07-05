@@ -29,6 +29,8 @@ export const useAppealsStore = create<AppealsActions & AppealsState>()(immer(set
     notifications: 0,
     data: [],
     setData: (data) => {    
+        console.log(data)
+        
         set({ data: data })
     },
     updateData: async (token) => {
