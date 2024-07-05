@@ -16,9 +16,9 @@ export const useOrdersPulling = () => {
 
         if (token.length !== 0) {
           getData()
-          // setInterval(() => {
-          //   getData()
-          // }, 5000)
+          setInterval(() => {
+            getData()
+          }, 5000)
         }
     }, [token])
 }

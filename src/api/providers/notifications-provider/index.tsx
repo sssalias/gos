@@ -3,44 +3,12 @@ import { Bounce, toast, ToastContainer } from 'react-toastify'
 import { onMessage } from 'firebase/messaging'
 import { messaging, requestPermission } from 'src/firabse'
 import { useUserStore } from 'src/store/user'
-import useSound from 'use-sound'
-
-import sound from 'src/assets/sound.mp3'
-import { useAppealsStore } from 'src/store/appeals'
-import { useOrdersStore } from 'src/store/orders'
-import AppealsService from 'src/api/services/AppealsService'
-import OrdersService from 'src/api/services/OrdersService'
 
 type PropsType = {
     children: ReactNode
 }
 
 const Toast = ({title, body}: any) => {
-
-    const {token} = useUserStore()
-    
-    // appeals
-    const updateAppeals = useAppealsStore(state => state.setData)
-    // orders
-    const updateOrders = useOrdersStore(state => state.setData)
-
-    const updateData = async () => {
-        const resAppeals = await AppealsService.get(token)
-        const resOrders = await OrdersService.get(token)
-        await updateAppeals(resAppeals.data)
-        await updateOrders(resOrders.data)
-    } 
-
-
-
-
-    const [play] = useSound(sound, {volume: 0.1})
-    play()
-
-    useEffect(() => {
-        updateData()
-    }, [])
-
     return (
             <div>
                 <h2>{title}</h2>
@@ -52,7 +20,6 @@ const Toast = ({title, body}: any) => {
 const NotificationsProvider = ({children}:PropsType) => {
 
     const {token} = useUserStore()
-    
     useEffect(() => {
         if (token.length !== 0) {
             requestPermission(token)
