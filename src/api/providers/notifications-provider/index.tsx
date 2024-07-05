@@ -33,9 +33,10 @@ const NotificationsProvider = ({children}:PropsType) => {
     // orders
     const updateOrders = useOrdersStore(state => state.updateData)
 
-    const updateData = async () => {
-        await updateAppeals(token)
-        await updateOrders(token)
+    const updateData = () => {
+        alert('Хуй')
+        updateAppeals(token)
+        updateOrders(token)
     } 
 
     useEffect(() => {
