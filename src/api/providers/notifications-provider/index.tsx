@@ -38,16 +38,15 @@ const NotificationsProvider = ({children}:PropsType) => {
     const updateData = async () => {
         const resAppeals = await AppealsService.get(token)
         const resOrders = await OrdersService.get(token)
-        updateAppeals(resAppeals.data)
-        updateOrders(resOrders.data)
-        console.log(resAppeals);
-        
+        await updateAppeals(resAppeals.data)
+        await updateOrders(resOrders.data)
     } 
 
     useEffect(() => {
         if (token.length !== 0) {
             requestPermission(token)
             onMessage(messaging, (payload) => {
+                updateData()
                 toast.info(<Toast title={payload.notification?.title} body={payload.notification?.body} />, {
                     position: "bottom-right",
                     autoClose: 5000,
@@ -59,7 +58,6 @@ const NotificationsProvider = ({children}:PropsType) => {
                     theme: "light",
                     transition: Bounce,
                     })
-                updateData()
             })
 
         }
