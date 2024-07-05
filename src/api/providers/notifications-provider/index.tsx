@@ -59,8 +59,9 @@ const NotificationsProvider = ({children}:PropsType) => {
                     theme: "light",
                     transition: Bounce,
                     })
+                updateData()
             })
-            updateData()
+
         }
       }, [token])
     return (
