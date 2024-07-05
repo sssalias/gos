@@ -40,6 +40,8 @@ const NotificationsProvider = ({children}:PropsType) => {
         const resOrders = await OrdersService.get(token)
         updateAppeals(resAppeals.data)
         updateOrders(resOrders.data)
+        console.log(resAppeals);
+        
     } 
 
     useEffect(() => {
