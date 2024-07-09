@@ -3,12 +3,24 @@ import { Bounce, toast, ToastContainer } from 'react-toastify'
 import { onMessage } from 'firebase/messaging'
 import { messaging, requestPermission } from 'src/firabse'
 import { useUserStore } from 'src/store/user'
+import useSound from 'use-sound'
+
+import sound from 'src/assets/sound.mp3'
 
 type PropsType = {
     children: ReactNode
 }
 
 const Toast = ({title, body}: any) => {
+
+    const [audio] = useSound(sound, {
+        volume: 0.4
+    })
+
+    useEffect(() => {
+        audio()
+    }, [])
+    
     return (
             <div>
                 <h2>{title}</h2>
