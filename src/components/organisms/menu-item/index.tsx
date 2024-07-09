@@ -12,10 +12,11 @@ import DeleteModal from 'src/components/molecules/delete-modal'
 type PropsType = {
     title: string,
     menu: any,
-    id: string
+    id: string,
+    dateTo: string
 }
 
-const MenuItem = ({title, menu, id}:PropsType) => {
+const MenuItem = ({title, menu, id, dateTo}:PropsType) => {
 
     const {token} = useUserStore()
     const {setData, updateData} = useCategoriesStore() 
@@ -46,7 +47,7 @@ const MenuItem = ({title, menu, id}:PropsType) => {
         <div className={classes.container}>
             <DeleteModal title='все позиции меню' active={activeDeleteModal} close={() => setActiveDeleteModal(false)} event={del}/>
             <div className={classes.header}>
-                <h1>{title} {menu.dateTo}</h1>
+                <h1>{title} {dateTo}</h1>
                 <button onClick={() => setActiveDeleteModal(true)} className='table-button'>
                     <img  src={trashIcon} alt="((" />
                 </button>

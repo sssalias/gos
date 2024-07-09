@@ -8,7 +8,7 @@ const MenuPage = () => {
     return (
       <BaseTemplate>
           <Routes>
-                {data.map((el) => <Route key={el.id} path={el.id} element={<MenuItem menu={el} key={el.id} title={el.title} id={el.id} />} />)}
+                {data.map((el) => <Route key={el.id} path={el.id} element={<MenuItem dateTo={el.dateTo} menu={el} key={el.id} title={el.title} id={el.id} />} />)}
             </Routes>
       </BaseTemplate>
     )
