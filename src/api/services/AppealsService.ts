@@ -19,7 +19,7 @@ class AppealsService {
         return await makeRequest(token, Methods.PUT, this.path, {id, status})
     }
     public async sendComment(token:string, id:string, data:any) {
-        return await makeRequest(token, Methods.POST, `${this.path}/${id}/comment`, data)
+        return await makeRequest(token, Methods.POST, `${this.path}/${id}/answer`, data)
     }
 }
 
