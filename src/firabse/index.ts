@@ -19,6 +19,7 @@ export const messaging = getMessaging(app)
 
 export async function requestPermission(accesToken: string) {
   const permission = await Notification.requestPermission()
+  //@ts-ignore
   const swRegistration = await navigator.serviceWorker.register('/firebase-messaging-sw.js')
   if (permission === 'granted') {
     const token = await getToken(messaging, {vapidKey: 'BKwVMxZ5bB9H7o5hjGK2iK5T6aGwnEgb2O1dcHz3GxiB7tTRfOfVmD1vJqg4m_b3OFkmadzwPXqCrtyfArqa7jQ'})
