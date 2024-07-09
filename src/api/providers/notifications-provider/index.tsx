@@ -6,6 +6,7 @@ import { useUserStore } from 'src/store/user'
 import useSound from 'use-sound'
 
 import sound from 'src/assets/sound.mp3'
+import { onBackgroundMessage } from 'firebase/messaging/sw'
 
 type PropsType = {
     children: ReactNode
@@ -42,6 +43,19 @@ const NotificationsProvider = ({children}:PropsType) => {
                     theme: "light",
                     transition: Bounce,
                     })
+            })
+            onBackgroundMessage(messaging, payload => {
+                toast.info(<Toast title={payload.notification?.title} body={payload.notification?.body} />, {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                    })  
             })
 
         }
