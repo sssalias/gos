@@ -13,13 +13,8 @@ type PropsType = {
 
 const Toast = ({title, body}: any) => {
 
-    const [audio] = useSound(sound, {
-        volume: 0.4
-    })
-
-    useEffect(() => {
-        audio()
-    }, [])
+    const [play] = useSound(sound, {volume: 0.1})
+    play()
     
     return (
             <div>
