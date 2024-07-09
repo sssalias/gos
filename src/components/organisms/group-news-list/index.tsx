@@ -16,7 +16,6 @@ const GroupNewsList = () => {
                 <span>Категория пользователей: </span>
                 <select value={filter} onChange={e => setFilter(e.target.value)}>
                     <option value="all">ВСЕ</option>
-                    <option value="user">Пользователь</option>
                     <option value="vip">VIP</option>
                     <option value="super_vip">SUPER_VIP</option>
                 </select>
