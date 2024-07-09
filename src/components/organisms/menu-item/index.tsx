@@ -8,6 +8,7 @@ import MenuService from 'src/api/services/MenuService'
 
 import trashIcon from 'src/assets/icons/trash.svg'
 import DeleteModal from 'src/components/molecules/delete-modal'
+import { useMenuStore } from 'src/store/menu'
 
 type PropsType = {
     title: string,
@@ -19,7 +20,8 @@ type PropsType = {
 const MenuItem = ({title, menu, id, dateTo}:PropsType) => {
 
     const {token} = useUserStore()
-    const {setData, updateData} = useCategoriesStore() 
+    const {setData, updateData} = useCategoriesStore()
+    const updateMenuState = useMenuStore(state => state.updateData) 
 
     const [file, setFile] = useState<any>(null)
 
@@ -65,6 +67,7 @@ const MenuItem = ({title, menu, id, dateTo}:PropsType) => {
                         const parse = async () => {
                             await MenuService.parse(token, {file: file, menuType: menu.type})
                             updateData(token, id)
+                            updateMenuState(token)
                         }
                         parse()
                     }
