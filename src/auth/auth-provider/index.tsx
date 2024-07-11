@@ -22,8 +22,6 @@ const AuthProvider = ({children}: PropsType) => {
             setAuth(keycloak.token)
         }
     }, [initialized, keycloak.token])
-
-    console.log(keycloak.token)
     
     function intervall(){
         keycloak.updateToken(5).then(function() {

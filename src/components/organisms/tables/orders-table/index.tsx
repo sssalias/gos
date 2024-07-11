@@ -133,11 +133,11 @@ const OrdersTable = () => {
         <>
             <ModalTemplate active={modalIsOpen} close={() => setModalOoen(false)} title={`Заказ №${currentData?.number}`}>
                 <Table
+                    sticky={true}
+                    scroll={{y: 500}}
                     emptyText='Нет данных'
                     columns={dishesColumns}
                     data={currentData?.dishes}
-                    sticky={true}
-                    scroll={{ y: 300 }}
                 />
             </ModalTemplate>
 
@@ -176,12 +176,11 @@ const OrdersTable = () => {
 
             </nav>
             <Table
+                sticky={true}
+                scroll={{y: 500}}
                 emptyText='Нет данных'
                 data={filteredData}
                 columns={columns}
-                // tableLayout="auto"
-                sticky={true}
-                scroll={{ y: 300 }}
             />
         </>
     )

@@ -99,11 +99,11 @@ const MenuTable = ({categoryId}:PropsType) => {
     return (
         <div className={classes.container}>
             <Table
+                sticky={true}
+                scroll={{y: 500}}
                 emptyText='Нет данных'
                 columns={col}
                 data={data}
-                sticky={true}
-                scroll={{ y: 300 }}
             />
             <DeleteModal active={activeDelete} event={del} close={() => setActiveDelete(false)} title='блюдо' />
             <UpdateDish old={selected} id={categoryId} active={activeEdit} close={() => setActiveEdit(false)}/>
