@@ -24,7 +24,7 @@
     flex-direction: column;
     gap: 30px;
     overflow-y: auto;
-    max-width: 50%;
+    max-width: 75%;
 
     &::-webkit-scrollbar-track
     {
