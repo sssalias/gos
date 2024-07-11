@@ -136,6 +136,8 @@ const OrdersTable = () => {
                     emptyText='Нет данных'
                     columns={dishesColumns}
                     data={currentData?.dishes}
+                    sticky={true}
+                    scroll={{ y: 300 }}
                 />
             </ModalTemplate>
 
@@ -177,6 +179,9 @@ const OrdersTable = () => {
                 emptyText='Нет данных'
                 data={filteredData}
                 columns={columns}
+                // tableLayout="auto"
+                sticky={true}
+                scroll={{ y: 300 }}
             />
         </>
     )
