@@ -108,6 +108,7 @@ div, table {
     overflow-x: auto;
     overflow-y: auto;
     //border-radius: 10px;
+    z-index: -1;
   }
   
   table {
@@ -121,7 +122,6 @@ div, table {
       background-color: $main-blue-color;
       position: sticky;
       top: 0;
-      z-index: 10;
     }
     tbody {
       transform: translate(0, 15px);
