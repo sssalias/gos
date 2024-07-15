@@ -92,6 +92,7 @@ const UnderSideItem = ({icon}:PropsType) => {
                         const create = async () => {
                             await MenuService.create(token, {title: types.title, type: types.today})
                             updateData(token)
+                            setModalIsActive(false)
                         }
 
                         create()
