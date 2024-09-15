@@ -1,5 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
+import { AppealPage } from 'src/pages/appeal-page'
 import { HomePage } from 'src/pages/home-page'
+import { OrderPage } from 'src/pages/order-page'
 
 
 export interface IRoute {
@@ -11,6 +13,14 @@ export const RouterData: IRoute[] = [
     {
         path: '/',
         page: <HomePage/>
+    },
+    {
+        path: '/orders',
+        page: <OrderPage/>
+    },
+    {
+        path: '/appeals',
+        page: <AppealPage/>
     }
 ]
 
