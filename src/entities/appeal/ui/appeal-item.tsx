@@ -1,22 +1,14 @@
 import { Button, Card, CardBody, useDisclosure } from '@nextui-org/react'
 import { useKeycloak } from '@react-keycloak/web'
 import { MdChat, MdDelete } from 'react-icons/md'
+import { Appeal } from 'src/entities/appeal/model'
 import AppealChat from 'src/entities/appeal/ui/appeal-chat'
 import { AppealsService } from 'src/shared/api'
 import { DeleteConfirm } from 'src/shared/ui'
 import { useAppealsStore } from 'src/store/appeals'
 
-type Props = {
-    photoId?: string | null
-    ownerRole: string
-    number: number
-    status: string
-    ownerEmail: string
-    body: string
-    id: string
-    comments: any[]
-}
-const AppealItem: React.FC<Props> = props => {
+
+const AppealItem: React.FC<Appeal> = props => {
 
     const {keycloak} = useKeycloak()
     const {updateData} = useAppealsStore()
