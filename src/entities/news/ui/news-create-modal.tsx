@@ -4,10 +4,31 @@ import { useState } from 'react'
 import { MediaService, NewsService } from 'src/shared/api'
 import { useNewsStore } from 'src/store/news'
 
+import { UseForm, SubmitHandler, useForm } from 'react-hook-form'
+ 
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+
 type Props = {
     isOpen: boolean
     onOpenChange: any
 }
+
+type Inputs = {
+    title: string
+    body: string
+    forUserTypes: string
+}
+
+
+const schema = yup
+    .object({
+        title: yup.string().required('Заголовок не должен быть пустым!'),
+        body: yup.string().required('Содержание не должно быть пустым!'),
+        forUserTypes: yup.string().required('Выберите категорию!')
+    })
+    .required()
+
 const NewsCreateModal: React.FC<Props> = props => {
 
     const {keycloak} = useKeycloak()
@@ -28,6 +49,16 @@ const NewsCreateModal: React.FC<Props> = props => {
         })
         setFiles([])
     }
+
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<Inputs>({
+        // @ts-ignore
+        resolver: yupResolver(schema)
+    })
 
     const send = async (close:any) => {
         const photoIds: any[] = []
@@ -50,6 +81,8 @@ const NewsCreateModal: React.FC<Props> = props => {
             .catch(err => console.log(err))
     }
 
+    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+
 
     return (
         <Modal isOpen={props.isOpen} onOpenChange={props.onOpenChange}>
@@ -60,16 +93,19 @@ const NewsCreateModal: React.FC<Props> = props => {
                             <h2>Создать новость</h2>
                         </ModalHeader>
                         <ModalBody>
-                            <form onSubmit={e => e.preventDefault()} className='flex flex-col gap-4'>
-                                <Input onChange={el => setData({...data, title: el.target.value})} type='text' label='Заголовок'/>
-                                <Textarea onChange={el => setData({...data, body: el.target.value})} type='text' label='Содержание'/>
-                                <Select value={data.forUserTypes} onChange={e => setData({...data, forUserTypes: e.target.value})} label='Группа пользователей'>
+                            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
+                                <p className='text-red-400'>{errors.title?.message}</p>
+                                <Input {...register('title')} type='text' label='Заголовок'/>
+                                <p className='text-red-400'>{errors.body?.message}</p>
+                                <Textarea {...register('body')} type='text' label='Содержание'/>
+                                <p className='text-red-400'>{errors.forUserTypes?.message}</p>
+                                <Select {...register('forUserTypes')} value={data.forUserTypes} label='Группа пользователей'>
                                     <SelectItem key='ВСЕ' value='ВСЕ'>ВСЕ</SelectItem>
                                     <SelectItem key='vip' value='vip'>vip</SelectItem>
                                     <SelectItem key='super_vip' value='super_vip'>super_vip</SelectItem>
                                 </Select>
-                                <Input onChange={e => setFiles(e.target.files)} type='file' label='Фотографии' multiple/>
-                                <Button onPress={() => send(onClose)} color='primary' variant='solid'>Создать</Button>
+                                <Input type='file' label='Фотографии' multiple/>
+                                <Button type='submit'  color='primary' variant='solid'>Создать</Button>
                             </form>
                         </ModalBody>
                     </>

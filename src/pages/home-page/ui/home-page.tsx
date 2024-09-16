@@ -1,9 +1,10 @@
 import { MainLayout } from 'src/layout'
+import { HomeGreet } from 'src/widgets/home-greet'
 
 const HomePage: React.FC = () => {
     return (
         <MainLayout title='Главная'>
-            <h1>HomePage</h1>
+            <HomeGreet/>
         </MainLayout>
     )
 }
