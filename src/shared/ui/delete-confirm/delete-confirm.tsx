@@ -13,7 +13,7 @@ const DeleteConfirm: React.FC<Props> = props => {
                 {(onClose) => (
                     <>
                         <ModalHeader>Подтвердите действие</ModalHeader>
-                        <ModalBody>Вы уверены, что хотите удалить {props.title}?</ModalBody>
+                        <ModalBody>Вы уверены, что хотите {props.title}?</ModalBody>
                         <ModalFooter>
                             <Button onPress={onClose} color='primary' variant='light'>Нет</Button>
                             <Button onPress={() => {                            

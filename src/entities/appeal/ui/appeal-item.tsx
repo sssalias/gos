@@ -52,7 +52,7 @@ const AppealItem: React.FC<Props> = props => {
                     await AppealsService.del(keycloak.token, props.id)
                     updateData(keycloak.token)
                 }
-            }} title={`обращение №${props.number}`}/>
+            }} title={`удалить обращение №${props.number}`}/>
             <AppealChat id={props.id} number={props.number} comments={props.comments} isOpen={chatActive.isOpen} onOpenChange={chatActive.onOpenChange}/>
         </>
     )

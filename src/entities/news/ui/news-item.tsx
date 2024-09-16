@@ -51,7 +51,7 @@ const NewsItem: React.FC<Props> = props => {
                     await NewsService.deleteForGroup(keycloak.token, props.id)
                     updateData(keycloak.token)
                 }
-            }} title='эту новость'/>
+            }} title='удалить эту новость'/>
             <Modal isOpen={infoActive.isOpen} onOpenChange={infoActive.onOpenChange}>
                 <ModalContent>
                     <ModalHeader>
