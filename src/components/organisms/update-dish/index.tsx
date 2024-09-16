@@ -108,25 +108,49 @@ const UpdateDish = ({close, active, id, old}:PropsType) => {
     return (
         <ModalTemplate title='Обновить блюдо' active={active} close={close}>
             <div className={classes.error}>
-                <span>{error}</span>
+                <span>{error}</span>    
             </div>
             <form className={classes.form}>
-                <input value={data?.title} onChange={e => setData({...data, title: e.target.value})} type="text" required name='title'
+                <label>
+                    <span>Название ⃰</span>
+                    <input value={data?.title} onChange={e => setData({...data, title: e.target.value})} type="text" required name='title'
                        placeholder='Название ⃰'/>
-                <input value={data?.price} min={1} onChange={e => setData({...data, price: +e.target.value})} type='number' step='any' required name='price'
+                </label>
+                <label>
+                    <span>Цена (рубли.копейки) ⃰</span>
+                    <input value={data?.price} min={1} onChange={e => setData({...data, price: +e.target.value})} type='number' step='any' required name='price'
                        placeholder='Цена (рубли.копейки) ⃰'/>
-                <input value={data?.cookingTime} min={1} onChange={e => setData({...data, cookingTime: +e.target.value})} step='any'  type="number" required
-                       name='cookingTime' placeholder='Время приготовления (минуты) ⃰'/>
-                <input value={data?.weight} onChange={e => setData({...data, weight: +e.target.value})} type="number" step='any' required
-                       name='weight' placeholder='Вес (граммы) ⃰'/>
-                <input value={data?.calories} onChange={e => setData({...data, calories: +e.target.value})} type="number" name='calories'
-                       placeholder='Калории'/>
-                <input value={data?.proteins} onChange={e => setData({...data, proteins: +e.target.value})} type="number" name='proteins'
-                       placeholder='Белки'/>
-                <input value={data?.fats} onChange={e => setData({...data, fats: +e.target.value})} type="number" name='fats'
-                       placeholder='Жиры'/>
-                <input value={data?.carbohydrates} onChange={e => setData({...data, carbohydrates: +e.target.value})} type="number"
-                       name='carbohydrates' placeholder='Углеводы'/>
+                </label>
+                <label>
+                    <span>Время приготовления (минуты) ⃰</span>
+                    <input value={data?.cookingTime} min={1} onChange={e => setData({...data, cookingTime: +e.target.value})} step='any'  type="number" required
+                        name='cookingTime' placeholder='Время приготовления (минуты) ⃰'/>
+                </label>
+                <label>
+                    <span>Вес (граммы) ⃰</span>
+                    <input value={data?.weight} onChange={e => setData({...data, weight: +e.target.value})} type="number" step='any' required
+                        name='weight' placeholder='Вес (граммы) ⃰'/>
+                </label>
+                <label>
+                    <span>Калории</span>
+                    <input value={data?.calories} onChange={e => setData({...data, calories: +e.target.value})} type="number" name='calories'
+                        placeholder='Калории'/>
+                </label>
+                <label>
+                    <span>Белки</span>
+                    <input value={data?.proteins} onChange={e => setData({...data, proteins: +e.target.value})} type="number" name='proteins'
+                        placeholder='Белки'/>
+                </label>
+                <label>
+                    <span>Жиры</span>
+                    <input value={data?.fats} onChange={e => setData({...data, fats: +e.target.value})} type="number" name='fats'
+                        placeholder='Жиры'/>
+                </label>
+                <label>
+                    <span>Углеводы</span>
+                    <input value={data?.carbohydrates} onChange={e => setData({...data, carbohydrates: +e.target.value})} type="number"
+                        name='carbohydrates' placeholder='Углеводы'/>
+                </label>
                 <div>
                     <label>Добавить фото</label>
                     <input type="file" onChange={e => setFile(e.target.files?.item(0))}/>
