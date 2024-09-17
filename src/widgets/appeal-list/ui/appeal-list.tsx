@@ -3,6 +3,7 @@ import { useKeycloak } from '@react-keycloak/web'
 import { useEffect } from 'react'
 import { AppealItem } from 'src/entities/appeal'
 import { AppealsService } from 'src/shared/api'
+import { ListCounter } from 'src/shared/ui'
 import { useAppealsStore } from 'src/store/appeals'
 
 const AppealList: React.FC = () => {
@@ -27,6 +28,7 @@ const AppealList: React.FC = () => {
 
     return (
         <div className='flex flex-col gap-2'>
+            <ListCounter count={data.length}/>
             <div className='flex gap-4'>
                 <Select value={filters.status} onChange={e => setFilters({...filters, status: e.target.value})} label="Статус">
                     <SelectItem key='ВСЕ'>ВСЕ</SelectItem>

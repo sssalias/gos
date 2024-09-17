@@ -11,7 +11,7 @@ const MainLayout: React.FC<Props> = props => {
             <SideBar/>
             <div className='ml-[275px]'>
                 <Header/>
-                <main className='mt-5'>
+                <main className='mt-[100px]'>
                     <h1 className='text-2xl font-bold'>{props.title}</h1>
                     <div className='mt-2'>
                         {props.children}

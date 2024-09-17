@@ -25,7 +25,7 @@ const Header: React.FC = () => {
     }, [initialized, keycloak])
 
     return (
-        <header className='w-full flex'>
+        <header className='h-[100px] w-[calc(100%-275px-2rem)] flex fixed  bg-white top-0 right-5 z-[15]'>
             <User
                 name={data.name}
                 description={data.role}

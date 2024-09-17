@@ -5,6 +5,7 @@ import NewsItem from 'src/entities/news/ui/news-item'
 import { NewsService } from 'src/shared/api'
 import { useNewsStore } from 'src/store/news'
 import { Select, SelectItem } from '@nextui-org/react'
+import { ListCounter } from 'src/shared/ui'
 
 const NewsList: React.FC = () => {
 
@@ -27,6 +28,7 @@ const NewsList: React.FC = () => {
 
     return (
         <div className='flex flex-col gap-4'>
+            <ListCounter count={data.length}/>
             <Select label='Группа пользователей' value={filter} onChange={e => setFilter(e.target.value)}>
                 <SelectItem value='all' key='all'>ВСЕ</SelectItem>
                 <SelectItem value='vip' key='vip'>vip</SelectItem>
@@ -35,7 +37,9 @@ const NewsList: React.FC = () => {
             <NewsCreate/>
             {data
                 .filter(el => filter !== 'all' ? el.forUserTypes === filter : el)
-                .map(el => <NewsItem id={el.id} title={el.title} body={el.body} forUserTypes={el.forUserTypes} photoIds={el.photoIds}/>)}
+                .map(el => <NewsItem id={el.id} title={el.title} body={el.body} forUserTypes={el.forUserTypes} photoIds={el.photoIds}/>)
+                .reverse()    
+            }
         </div>
     )
 }

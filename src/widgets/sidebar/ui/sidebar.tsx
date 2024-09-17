@@ -5,12 +5,12 @@ import { RiLogoutBoxFill } from 'react-icons/ri'
 import { IoFastFoodSharp } from 'react-icons/io5'
 import { DeleteConfirm, Logo } from 'src/shared/ui'
 import clsx from 'clsx'
-import { useState } from 'react'
 import { FaChevronDown, FaChevronUp, FaClipboardList, FaCommentDots, FaHome } from 'react-icons/fa'
 import { GoDotFill } from 'react-icons/go'
 import { ImNewspaper } from 'react-icons/im'
 import { useKeycloak } from '@react-keycloak/web'
 import { useDisclosure } from '@nextui-org/react'
+import { useSideStore } from 'src/store/side'
 
 
 interface INavItem {
@@ -19,7 +19,6 @@ interface INavItem {
     icon?: React.ReactNode
     subItems?: INavItem[]
 }
-
 
 const navigation: INavItem[] = [
     {
@@ -58,10 +57,11 @@ const navigation: INavItem[] = [
 
 const SideBar: React.FC = () => {
 
-    const {isOpen, onOpen, onOpenChange} = useDisclosure()
-    const [active, setActive] = useState(false)
+    const confirm = useDisclosure()
 
     const {keycloak} = useKeycloak()
+
+    const {isOpen, setOpen} = useSideStore()
 
     return (
         <>
@@ -89,16 +89,16 @@ const SideBar: React.FC = () => {
                                             }
                                             return (
                                                 <>
-                                                    <li key={el.text} className='flex justify-between items-center py-4 px-5 w-full uppercase'>
+                                                    <li onClick={() => setOpen(!isOpen)} key={el.text} className='flex justify-between items-center cursor-pointer py-4 px-5 w-full uppercase'>
                                                         <div className='flex items-center gap-4'>
                                                             <i>{el.icon}</i>
                                                             <span className='font-semibold'>{el.text}</span>
                                                         </div>
-                                                        <button onClick={() => setActive(!active)}>
-                                                            <i>{active ? <FaChevronUp /> : <FaChevronDown />}</i>
+                                                        <button>
+                                                            <i>{isOpen ? <FaChevronUp /> : <FaChevronDown />}</i>
                                                         </button>
                                                     </li>
-                                                    <div className={clsx('pl-5 w-full transition-all overflow-y-hidden', active ? 'max-h-[500px]' : 'max-h-0')}>
+                                                    <div className={clsx('pl-5 w-full transition-all overflow-y-hidden', isOpen ? 'max-h-[500px]' : 'max-h-0')}>
                                                         {el.subItems.map(subEl => (
                                                             <li key={subEl.text} className='text-base w-full rounded-xl uppercase transition-all hover:bg-blue-500'>
                                                                 <Link to={subEl.path} className='flex items-center gap-4 py-4 px-5 w-full'>
@@ -113,7 +113,7 @@ const SideBar: React.FC = () => {
                                         }
                                     )}
                                     <li key={'logOut'} className='text-base w-full border-[1px] border-solid border-primary-grey mt-auto rounded-xl'>
-                                        <button onClick={onOpen} className='flex items-center gap-4 py-4 px-5 w-full text-primary-grey'>
+                                        <button onClick={confirm.onOpen} className='flex items-center gap-4 py-4 px-5 w-full text-primary-grey'>
                                             <i><RiLogoutBoxFill/></i>
                                             <span className='font-semibold uppercase'>Выйти</span>
                                         </button>
@@ -125,7 +125,7 @@ const SideBar: React.FC = () => {
                     </div>
                 </div>
             </aside>
-            <DeleteConfirm title='выйти' isOpen={isOpen} onOpenChange={onOpenChange} function={keycloak.logout}/>
+            <DeleteConfirm title='выйти' isOpen={confirm.isOpen} onOpenChange={confirm.onOpenChange} function={keycloak.logout}/>
         </>
     )
 }
