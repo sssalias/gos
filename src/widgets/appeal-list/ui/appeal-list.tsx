@@ -2,8 +2,8 @@ import { Select, SelectItem } from '@nextui-org/react'
 import { useKeycloak } from '@react-keycloak/web'
 import { useEffect } from 'react'
 import { AppealItem } from 'src/entities/appeal'
+import { ListLayout } from 'src/layout/ui'
 import { AppealsService } from 'src/shared/api'
-import { ListCounter } from 'src/shared/ui'
 import { useAppealsStore } from 'src/store/appeals'
 
 const AppealList: React.FC = () => {
@@ -27,8 +27,7 @@ const AppealList: React.FC = () => {
     
 
     return (
-        <div className='flex flex-col gap-2'>
-            <ListCounter count={data.length}/>
+        <ListLayout dataCount={data.length}>
             <div className='flex gap-4'>
                 <Select value={filters.status} onChange={e => setFilters({...filters, status: e.target.value})} label="Статус">
                     <SelectItem key='ВСЕ'>ВСЕ</SelectItem>
@@ -49,7 +48,7 @@ const AppealList: React.FC = () => {
                     .reverse()
                     .map(el => <AppealItem comments={el.comments} ownerRole={el.ownerRoles[0]}  photoId={el.photoId} status={el.status} id={el.id} key={el.id} number={el.number} ownerEmail={el.ownerEmail} body={el.body}/>)
             }
-        </div>
+        </ListLayout>
     )
 }
 export default AppealList
