@@ -1,10 +1,10 @@
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react'
 
 type Props = {
-    function: any
+    function: () => void
+    onOpenChange: () => void
     title: string
     isOpen: boolean
-    onOpenChange: any
 }
 const DeleteConfirm: React.FC<Props> = props => {
     return (
