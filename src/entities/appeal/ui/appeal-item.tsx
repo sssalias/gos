@@ -1,6 +1,8 @@
-import { Button, Card, CardBody, useDisclosure } from '@nextui-org/react'
+import { Button, Card, CardBody, Select, SelectItem, useDisclosure } from '@nextui-org/react'
 import { useKeycloak } from '@react-keycloak/web'
 import { MdChat, MdDelete } from 'react-icons/md'
+import { statuses } from 'src/entities/appeal/libs'
+import { changeStatus } from 'src/entities/appeal/libs/changeStatus'
 import { Appeal } from 'src/entities/appeal/model'
 import AppealChat from 'src/entities/appeal/ui/appeal-chat'
 import { AppealsService } from 'src/shared/api'
@@ -20,10 +22,21 @@ const AppealItem: React.FC<Appeal> = props => {
             <Card shadow='sm' className='p-4'>
                 <CardBody>
                     <div className='w-full flex justify-between items-center'>
-                        <div className='flex gap-1'>
+                        <div className='flex flex-grow items-center gap-4'>
                             <h2 className='font-semibold'>Обраещние №{props.number}</h2>
                             <span>e-mail: {props.ownerEmail}</span>
-                            <span>{props.status}</span>
+                            <Select
+                                className='w-2/6'
+                                label='Статус обращения'
+                                defaultSelectedKeys={[props.status]}
+                                onChange={e => changeStatus(props.id, keycloak.token, e.target.value, updateData)}
+                                >
+                                {statuses.map((item) => (
+                                    <SelectItem key={item.key}>
+                                    {item.label}
+                                    </SelectItem>
+                                ))}
+                            </Select>
                             <span>Роль: {props.ownerRole}</span>
                         </div>
                         <div className='flex gap-2'>
