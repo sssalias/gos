@@ -65,7 +65,11 @@ const SideBar: React.FC = () => {
 
     return (
         <>
-            <aside className={clsx(!isSmall ? 'w-[250px]' : 'w-[75px]', 'fixed h-[calc(100vh-40px)] transition-size bg-main-blue rounded-2xl z-[15]')}>
+            <aside className={clsx(
+                !isSmall ? 'w-[250px]' : 'w-[75px]', 
+                'fixed h-[calc(100vh-40px)] transition-size bg-main-blue rounded-2xl z-[15]',
+                'max-sm:invisible'
+            )}>
                 <div className='h-full w-3/4 mx-auto'>
                     <div className='h-full py-6 flex flex-col justify-between items-center gap-4'>
                         {/* brand */}

@@ -14,7 +14,7 @@ interface SideActions {
 
 export const useSideStore = create<SideActions & SideState>()(immer(set => ({
     isOpen: false,
-    isSmall: true,
+    isSmall: false,
     setOpen: (open) => {
         set({isOpen: open})
     },
