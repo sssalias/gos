@@ -2,67 +2,35 @@ import { Link } from 'react-router-dom'
 
 // icons
 import { RiLogoutBoxFill } from 'react-icons/ri'
-import { IoFastFoodSharp } from 'react-icons/io5'
 import { DeleteConfirm, Logo } from 'src/shared/ui'
 import clsx from 'clsx'
-import { FaArrowLeft, FaArrowRight, FaChevronDown, FaChevronUp, FaClipboardList, FaCommentDots, FaHome } from 'react-icons/fa'
-import { GoDotFill } from 'react-icons/go'
-import { ImNewspaper } from 'react-icons/im'
+import { FaArrowLeft, FaArrowRight, FaChevronDown, FaChevronUp, FaPlus } from 'react-icons/fa'
 import { useKeycloak } from '@react-keycloak/web'
 import { Button, useDisclosure } from '@nextui-org/react'
 import { useSideStore } from 'src/store/side'
+import { CreateMenuModal } from 'src/entities/menu'
+import { getMenu, getNavigation } from 'src/widgets/sidebar/api'
+import { useMenuStore } from 'src/store/menu'
+import { useEffect } from 'react'
 
-
-interface INavItem {
-    path: string
-    text: string
-    icon?: React.ReactNode
-    subItems?: INavItem[]
-}
-
-const navigation: INavItem[] = [
-    {
-        path: '/',
-        text: 'Главная',
-        icon: <FaHome />
-    },
-    {
-        path: '/menu',
-        text: 'Меню',
-        icon: <IoFastFoodSharp />,
-        subItems: [
-            {
-                path: '/menu/safjasfasfas',
-                text: 'общее',
-                icon: <GoDotFill />
-            }
-        ]
-    },
-    {
-        path: '/orders',
-        text: 'Заказы',
-        icon: <FaClipboardList />
-    },
-    {
-        path: '/appeals',
-        text: 'Обращения',
-        icon: <FaCommentDots />
-    },
-    {
-        path: '/news',
-        text: 'Новости',
-        icon: <ImNewspaper />
-    }
-]
 
 const SideBar: React.FC = () => {
 
-    const confirm = useDisclosure()
 
     const {keycloak} = useKeycloak()
+    const {setData, data} = useMenuStore()
+
+    useEffect(() => {
+        if (keycloak.token) {
+            getMenu(keycloak.token, setData)
+        }
+    }, [keycloak.token])
+    
+    const confirm = useDisclosure()
+    const menu = useDisclosure()
 
     const {isOpen, setOpen, isSmall, setSmall} = useSideStore()
-
+    const navigation = getNavigation(data)
     return (
         <>
             <aside className={clsx(
@@ -108,7 +76,7 @@ const SideBar: React.FC = () => {
                                                     {
                                                         !isSmall
                                                         ?
-                                                        <div className={clsx('pl-5 w-full transition-all overflow-y-hidden', isOpen ? 'max-h-[500px]' : 'max-h-0')}>
+                                                        <div className={clsx('pl-5 w-full transition-all overflow-y-hidden', isOpen ? 'max-h-[800px]' : 'max-h-0')}>
                                                             {el.subItems.map(subEl => (
                                                                 <li key={subEl.text} className='text-base w-full rounded-xl uppercase transition-all hover:bg-blue-500'>
                                                                     <Link to={subEl.path} className='flex items-center gap-4 py-4 px-5 w-full'>
@@ -116,7 +84,18 @@ const SideBar: React.FC = () => {
                                                                         <span className='font-semibold'>{subEl.text}</span>
                                                                     </Link>
                                                                 </li>                                                         
-                                                            ))}                                               
+                                                            ))}
+                                                            {
+                                                                el.add 
+                                                                ?
+                                                                <li 
+                                                                    onClick={menu.onOpen}
+                                                                    className='flex justify-center items-center cursor-pointer py-4 px-5 text-base w-full rounded-xl uppercase transition-all hover:bg-blue-500'>
+                                                                    <FaPlus/>
+                                                                </li>
+                                                                :
+                                                                null
+                                                            }                                           
                                                         </div>
                                                         :
                                                         null
@@ -139,6 +118,7 @@ const SideBar: React.FC = () => {
                 </div>
             </aside>
             <DeleteConfirm title='выйти' isOpen={confirm.isOpen} onOpenChange={confirm.onOpenChange} function={keycloak.logout}/>
+            <CreateMenuModal isOpen={menu.isOpen} onOpenChange={menu.onOpenChange}/>
         </>
     )
 }

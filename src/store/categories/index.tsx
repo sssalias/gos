@@ -1,4 +1,4 @@
-import CategoriesService from 'src/api/services/CategoriesService'
+import { CategoriesService } from 'src/shared/api'
 import {create} from 'zustand'
 import {immer} from 'zustand/middleware/immer'
 

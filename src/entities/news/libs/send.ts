@@ -2,7 +2,8 @@ import { News } from 'src/entities/news/model'
 import { NewsService } from 'src/shared/api'
 
 
-export const send = async (news:News, 
+export const send = async (
+    news:News, 
     token:string | undefined, 
     onClose: () => void, 
     updateData: (token: string) => void,

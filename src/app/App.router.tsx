@@ -3,6 +3,7 @@ import { AppealPage } from 'src/pages/appeal-page'
 import { ErrorPage } from 'src/pages/error-page'
 import { HomePage } from 'src/pages/home-page'
 import { LoadingPage } from 'src/pages/loading-page'
+import MenuPage from 'src/pages/menu-page/ui/menu-page'
 import { NewsPage } from 'src/pages/news-page'
 import { OrderPage } from 'src/pages/order-page'
 
@@ -16,6 +17,10 @@ const RouterData: IRoute[] = [
     {
         path: '/',
         page: <HomePage/>
+    },
+    {
+        path: '/menu/:id',
+        page: <MenuPage/>
     },
     {
         path: '/orders',
