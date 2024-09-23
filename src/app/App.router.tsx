@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { AppealPage } from 'src/pages/appeal-page'
+import { DishPage } from 'src/pages/dish-page'
 import { ErrorPage } from 'src/pages/error-page'
 import { HomePage } from 'src/pages/home-page'
 import { LoadingPage } from 'src/pages/loading-page'
@@ -21,6 +22,10 @@ const RouterData: IRoute[] = [
     {
         path: '/menu/:id',
         page: <MenuPage/>
+    },
+    {
+        path: '/menu/:id/:categoryId/:title',
+        page: <DishPage/>
     },
     {
         path: '/orders',

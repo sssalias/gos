@@ -1,7 +1,7 @@
 import { Button, Card, CardBody, CardHeader, useDisclosure } from '@nextui-org/react'
 import { useKeycloak } from '@react-keycloak/web'
 import { MdDelete } from 'react-icons/md'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { deleteCategory } from 'src/entities/category/api'
 import { DeleteConfirm } from 'src/shared/ui'
 import { useCategoriesStore } from 'src/store/categories'
@@ -30,8 +30,11 @@ const CategoryItem: React.FC<Props> = props => {
                         <i><MdDelete/></i>
                     </Button>
                 </CardHeader>
-                <CardBody className='flex items-center justify-center py-12 cursor-pointer hover:shadow-lg'>
-                    <h2 className='font-semibold'>{props.title}</h2>
+                <CardBody className='flex flex-col items-center justify-center gap-5 py-8 cursor-pointer hover:shadow-lg'>
+                    <h2 className='font-semibold text-2xl'>{props.title}</h2>
+                    <Link to={props.id + '/' + props.title}>
+                        <Button variant='bordered' color='primary'>Подробнее</Button>
+                    </Link>
                 </CardBody>
             </Card>
             <DeleteConfirm title='удалить эту категорию' isOpen={confirm.isOpen} onOpenChange={confirm.onOpenChange} function={() => deleteCategory(keycloak.token, props.id, id, updateData)}/>

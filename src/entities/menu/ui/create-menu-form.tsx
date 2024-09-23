@@ -46,6 +46,9 @@ const CreateMenuForm: React.FC<Props> = props => {
                 setTypes([...baseTypes.filter(item => item !== el.type), ...types])
             }
         })
+        if (data.length === 0) {
+            setTypes(baseTypes)
+        }
     }, [data])
 
     console.log(types);
