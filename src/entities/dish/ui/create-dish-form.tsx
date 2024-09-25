@@ -21,6 +21,7 @@ type Inputs = {
     proteins: number
     fats: number
     carbohydrates: number
+    photoId: FileList
 }
 
 const schema = yup
@@ -32,7 +33,8 @@ const schema = yup
         calories: yup.number().notRequired(),
         proteins: yup.number().notRequired(),
         fats: yup.number().notRequired(),
-        carbohydrates: yup.number().notRequired()
+        carbohydrates: yup.number().notRequired(),
+        photoId: yup.mixed()
     })
     .required()
 
@@ -78,6 +80,9 @@ const CreateDishForm: React.FC<Props> = props => {
                 <Input {...register('proteins')} defaultValue='0' required={false} type='number' label='Белки'/>
                 <Input {...register('fats')} defaultValue='0' required={false} type='number' label='Жиры'/>
                 <Input {...register('carbohydrates')} defaultValue='0' required={false} type='number' label='Углеводы'/>
+            </fieldset>
+            <fieldset>
+                <Input {...register('photoId')} type='file' label='Фото'/>
             </fieldset>
             <fieldset className='w-full'>
                 <Button className='w-full' type='submit' variant='solid' color='primary' >Добавить</Button>

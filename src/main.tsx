@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { ReactKeycloakProvider } from '@react-keycloak/web'
 import { authClient, AuthProvider } from 'src/processes/auth'
 import { AppealPullingProvider } from 'src/features/appeal-pulling'
+import { OrderPullingProvider } from 'src/features/order-pulling'
 
 createRoot(document.getElementById('root')!).render(
   <ReactKeycloakProvider authClient={authClient} initOptions={{onLoad: "login-required"}}>
@@ -15,7 +16,9 @@ createRoot(document.getElementById('root')!).render(
         <BrowserRouter>
           <AuthProvider>
             <AppealPullingProvider>
-              <App />
+              <OrderPullingProvider>
+                <App />
+              </OrderPullingProvider>
             </AppealPullingProvider>
           </AuthProvider>
         </BrowserRouter>

@@ -10,7 +10,7 @@ export const createDish = async (
 ) => {
     try {
         if (token && categoryId) {
-            await DishServices.create(token, {description: 'safas', photoId: null, ...data}, categoryId)
+            await DishServices.create(token, {...data, description: 'safas', photoId: null,}, categoryId)
             updateData(token, categoryId)
             reset()
             onClose()

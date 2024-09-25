@@ -1,4 +1,4 @@
-import OrdersService from 'src/api/services/OrdersService'
+import OrdersService from 'src/shared/api/services/OrdersService'
 import {create} from 'zustand'
 import {immer} from 'zustand/middleware/immer'
 

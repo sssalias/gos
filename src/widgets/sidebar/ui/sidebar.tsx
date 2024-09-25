@@ -86,7 +86,7 @@ const SideBar: React.FC = () => {
                                                                 </li>                                                         
                                                             ))}
                                                             {
-                                                                el.add 
+                                                                el.add && data.length < 2
                                                                 ?
                                                                 <li 
                                                                     onClick={menu.onOpen}
