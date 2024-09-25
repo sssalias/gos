@@ -1,20 +1,18 @@
-import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { ClearMenu } from 'src/features/clear-menu'
+import { ImportMenu } from 'src/features/import'
 import { MainLayout } from 'src/layout'
 import { CategoryList } from 'src/widgets/category-list'
-// import { CategoryList } from 'src/widgets/category-list'
 
 const MenuPage: React.FC = () => {
-
-    const {id} = useParams()
-    
-    useEffect(() => {
-        console.log(id)
-    }, [id])
-
     return (
         <MainLayout title='Категории меню'>
-            <CategoryList/>
+            <div className='flex flex-col gap-4'>
+                <div className='flex justify-between'>
+                    <ImportMenu/>
+                    <ClearMenu/>
+                </div>
+                <CategoryList/>
+            </div>
         </MainLayout>
     )
 }
