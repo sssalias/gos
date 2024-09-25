@@ -1,4 +1,4 @@
-import DishServices from 'src/api/services/DishServices'
+import { DishServices } from 'src/shared/api'
 import {create} from 'zustand'
 import {immer} from 'zustand/middleware/immer'
 

@@ -1,7 +1,10 @@
 type Props = {
-   count: number 
+   count?: number 
 }
 const ListCounter: React.FC<Props> = props => {
+    if (!props.count) {
+        return null
+    }
     return (
         <h2 className='font-base'>
             <span>Общее количество: </span>

@@ -1,15 +1,22 @@
-import { Button, Image, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/react'
-import { useCallback } from 'react'
+import { Button, Image, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, useDisclosure } from '@nextui-org/react'
+import { useKeycloak } from '@react-keycloak/web'
+import { useCallback, useEffect } from 'react'
 import { MdDelete, MdEdit } from 'react-icons/md'
+import { deleteDish } from 'src/entities/dish/api'
 import { columns } from 'src/entities/dish/libs'
+import { DeleteConfirm } from 'src/shared/ui'
+import { useDishesStore } from 'src/store/dishes'
 
 const DishTable: React.FC = () => {
+    
+    const {keycloak} = useKeycloak()
 
-    const renderCell = useCallback((row, key) => {
-        const cellValue = row[key]
+    const {data} = useDishesStore()
 
-        console.log(row.key, key)
-        
+    const confirm = useDisclosure()
+
+    const renderCell = (row, key) => {
+        const cellValue = row[key]        
         switch (key) {
             case 'photoId':
                 return (
@@ -33,33 +40,39 @@ const DishTable: React.FC = () => {
                 )
             case 'actions':
                 return (
-                    <div className='flex gap-2 justify-center'>
-                        <Button isIconOnly variant='solid' color='danger'><i><MdDelete/></i></Button>
-                        <Button isIconOnly value='solid' color='primary'><i><MdEdit/></i></Button>
-                    </div>
+                    <>
+                        <div className='flex gap-2 justify-center'>
+                            <Button isIconOnly value='solid' color='primary'><i><MdEdit/></i></Button>
+                            <Button onClick={confirm.onOpen} isIconOnly variant='solid' color='danger'><i><MdDelete/></i></Button>
+                        </div>
+                    </>
                 )
             default:
+                console.log('asfasf');
                 return cellValue
         }
-    }, [])
+    }
 
     return (
-        <Table aria-label="Example table with custom cells">
-        <TableHeader columns={columns}>
-          {(column) => (
-            <TableColumn key={column.label} align={column.key === "actions" ? "center" : "start"}>
-              {column.label}
-            </TableColumn>
-          )}
-        </TableHeader>
-        <TableBody items={[{photoId: '', title: 'FFFF', price: 2000, cookingTime: 20, calories: 0, fats: 0, proteins: 0, carbohydrates: 0, actions: null}]}>
-          {(item) => (
-            <TableRow key={item.title}>
-              {(columnKey) => <TableCell>{renderCell(item, columns.filter(el => el.label == columnKey).at(0)?.key)}</TableCell>}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+        <>
+            <DeleteConfirm isOpen={confirm.isOpen} onOpenChange={confirm.onOpenChange} title={`удалить блюдо`}/>
+            <Table aria-label="Example table with custom cells">
+                <TableHeader columns={columns}>
+                {(column) => (
+                    <TableColumn key={column.label} align={column.key === "actions" ? "center" : "start"}>
+                    {column.label}
+                    </TableColumn>
+                )}
+                </TableHeader>
+                <TableBody items={data}>
+                {(item) => (
+                    <TableRow key={item.title}>
+                    {(columnKey) => <TableCell>{renderCell(item, columns.filter(el => el.label == columnKey).at(0)?.key)}</TableCell>}
+                    </TableRow>
+                )}
+                </TableBody>
+            </Table>
+        </>
     )
 }
 export default DishTable

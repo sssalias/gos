@@ -1,16 +1,28 @@
+import { useKeycloak } from '@react-keycloak/web'
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { DishTable } from 'src/entities/dish'
+import { CreateDishItem, DishTable, getDish } from 'src/entities/dish'
 import { MainLayout } from 'src/layout'
+import { ListLayout } from 'src/layout/ui'
+import { useDishesStore } from 'src/store/dishes'
 
 const DishPage: React.FC = () => {
 
-    const {id, title, categoryId} = useParams()
+    const {title, categoryId} = useParams()
 
-    console.log(id, categoryId)
+    const {keycloak} = useKeycloak()
+    const {setData} = useDishesStore()
+
+    useEffect(() => {
+        getDish(keycloak.token, categoryId, setData)
+    }, [categoryId, keycloak.token])
     
     return (
         <MainLayout title={'Блюда категории ' + title}>
-            <DishTable/>
+            <ListLayout>
+                <CreateDishItem/>
+                <DishTable/>
+            </ListLayout>
         </MainLayout>
     )
 }

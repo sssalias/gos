@@ -2,7 +2,7 @@ import { ListCounter } from 'src/shared/ui'
 
 type Props = {
     children: React.ReactNode
-    dataCount: number
+    dataCount?: number
 }
 const ListLayout: React.FC<Props> = props => {
     return (
