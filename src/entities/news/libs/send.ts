@@ -1,5 +1,5 @@
 import { News } from 'src/entities/news/model'
-import { NewsService } from 'src/shared/api'
+import { MediaService, NewsService } from 'src/shared/api'
 
 
 export const send = async (
@@ -11,8 +11,14 @@ export const send = async (
     ) => {
     try {
         if (token) {
-            const {title, body, forUserTypes} = news
-            await NewsService.createForGroup(token, {title, body, forUserTypes, photoIds: []})
+            if (news.photoIds.length === 0) {
+                await NewsService.createForGroup(token, {...news, photoIds: []}) 
+            } else {
+                let photoIds:string[] = []
+                await MediaService.uploadList(token, news.photoIds)
+                    .then(res => photoIds = res.map(el => el.data.id))
+                    await NewsService.createForGroup(token, {...news, photoIds}) 
+            }
             onClose()
             reset()
             updateData(token)

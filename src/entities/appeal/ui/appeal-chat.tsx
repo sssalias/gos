@@ -6,13 +6,14 @@ import { MediaService } from 'src/shared/api'
 import * as yup from "yup"
 import { Comment } from 'src/entities/appeal/model'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useKeycloak } from '@react-keycloak/web'
 import { useAppealsStore } from 'src/store/appeals'
 
 import { send } from 'src/entities/appeal/libs/send'
+import { RxCross1 } from 'react-icons/rx'
 
 type Props = {
     id: string
@@ -24,13 +25,13 @@ type Props = {
 
 type Inputs = {
     body: string
-    files: File[]
+    // photoIds: File[]
 }
 
 const schema = yup
     .object({
         body: yup.string().required(''),
-        files: yup.mixed()
+        // photoIds: yup.mixed()
     })
     .required()
 
@@ -49,8 +50,10 @@ const AppealChat: React.FC<Props> = props => {
 
     const {keycloak} = useKeycloak()
     const inputRef = useRef<HTMLInputElement>(null)
-    const onSubmit: SubmitHandler<Inputs> = (data) => send(props.id, data, keycloak.token, updateData, reset)
+    const onSubmit: SubmitHandler<Inputs> = (data) => send(props.id, {...data, photoIds: files}, keycloak.token, updateData, reset)
     
+
+    const [files, setFiles] = useState<any>([])
 
     return (
         <Modal isOpen={props.isOpen} onOpenChange={props.onOpenChange}>
@@ -77,14 +80,14 @@ const AppealChat: React.FC<Props> = props => {
                     </div>
                     <form onSubmit={handleSubmit(onSubmit)} className='w-full flex'>
                         <Textarea {...register('body')} placeholder='Напишите сообщение...' size='sm'/>
-                        <input {...register('files')} ref={inputRef} type="file" multiple hidden />
+                        <input onChange={e => setFiles(e.target.files)} ref={inputRef} type="file" multiple hidden />
                         <div className='flex flex-col'>
                             <Button type='submit' className='rounded-none' isIconOnly color='primary' variant='solid'><i><IoSend /></i></Button>
                             <Button onPress={() => inputRef.current?.click()} className='rounded-none' isIconOnly color='primary' variant='solid'><i><FaPaperclip /></i></Button>
                         </div>
                     </form>
                     <div className='flex flex-col gap-2'>
-                        {/* {files.map(el => <div className='flex items-center gap-2'><span>{el.name}</span><Button onPress={() => setFiles(files.filter(f => f.name !== el.name))} isIconOnly variant='light' color='danger'><i>{<RxCross1 />}</i></Button></div>)} */}
+                        {Array.from(files).map(el => <div className='flex items-center gap-2'><span>{el.name}</span><Button onPress={() => setFiles(Array.from(files).filter(f => f.name !== el.name))} isIconOnly variant='light' color='danger'><i>{<RxCross1 />}</i></Button></div>)}
                     </div>
                 </ModalBody>
             </ModalContent>

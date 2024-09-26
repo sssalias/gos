@@ -2,7 +2,7 @@ interface News {
     title: string
     body: string
     forUserTypes: string
-    photoIds?: string[]
+    photoIds: any[]
 }
 
 export default News 

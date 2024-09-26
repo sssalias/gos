@@ -45,7 +45,7 @@ const navigation: INavItem[] = [
 export const getNavigation = (data:any[]) => {
     navigation.forEach(nav => {
         if (nav.subItems) {
-            nav.subItems = data.map((el):INavItem => {return {path: '/menu/' + el.id, icon: <GoDotFill />, text: el.type}})
+            nav.subItems = data.map((el):INavItem => {return {path: '/menu/' + el.id, icon: <GoDotFill />, text: el.title}})
         }
     })
     return navigation

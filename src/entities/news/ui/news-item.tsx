@@ -1,7 +1,7 @@
 import { Button, Card, CardBody, Image, Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from '@nextui-org/react'
 import { useKeycloak } from '@react-keycloak/web'
 import { MdDelete, MdInfo } from 'react-icons/md'
-import { NewsService } from 'src/shared/api'
+import { MediaService, NewsService } from 'src/shared/api'
 import { DeleteConfirm } from 'src/shared/ui'
 import { useNewsStore } from 'src/store/news'
 
@@ -62,7 +62,7 @@ const NewsItem: React.FC<Props> = props => {
                         <span>{props.body}</span>
                         <div className='flex flex-grow gap-2'>
                             {props.photoIds.map(el => (
-                                <Image src={el} alt='photo' />
+                                <Image src={MediaService.getFile(el)} alt='photo' />
                             ))}
                         </div>
                     </ModalBody>

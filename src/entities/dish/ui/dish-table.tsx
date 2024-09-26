@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { deleteDish } from 'src/entities/dish/api'
 import { columns } from 'src/entities/dish/libs'
 import EditDishModal from 'src/entities/dish/ui/edit-dish-modal'
+import { MediaService } from 'src/shared/api'
 import { DeleteConfirm } from 'src/shared/ui'
 import { useDishesStore } from 'src/store/dishes'
 
@@ -41,7 +42,7 @@ const DishTable: React.FC = () => {
             case 'photoId':
                 return (
                     <Image
-                        src={cellValue}
+                        src={MediaService.getFile(cellValue)}
                         height={50}
                         width={50}
                     />
@@ -62,11 +63,11 @@ const DishTable: React.FC = () => {
                 return (
                     <>
                         <div className='flex gap-2 justify-center'>
-                            <Button onClick={() => {
+                            <Button size='sm' onClick={() => {
                                 setSelectedItem(row)
                                 edit.onOpen()
                             }} isIconOnly value='solid' color='primary'><i><MdEdit/></i></Button>
-                            <Button onClick={() => {
+                            <Button size='sm' onClick={() => {
                                 setSelectedItem(row)
                                 confirm.onOpen()
                             }} isIconOnly variant='solid' color='danger'><i><MdDelete/></i></Button>

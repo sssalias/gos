@@ -8,8 +8,7 @@ import { changeStatus } from 'src/widgets/order-table/api/changeStatus'
 import { useKeycloak } from '@react-keycloak/web'
 import { FaInfo } from 'react-icons/fa6'
 import { OrderDishTable } from 'src/entities/order'
-import { useAsyncList } from '@react-stately/data'
-
+import { ListLayout } from 'src/layout/ui'
 
 const OrderTable = () => {
 
@@ -24,7 +23,6 @@ const OrderTable = () => {
     const {keycloak} = useKeycloak()
 
     const renderCell = useCallback((row, key) => {
-        console.log(row)
         const cellValue = row[key]
 
         switch (key) {
@@ -58,48 +56,33 @@ const OrderTable = () => {
         }
     }, [])
 
-    const list = useAsyncList({
-        async load() {
-            console.log(data)
-            return {
-                items: data
-            }
-        },
-        async sort({items, sortDescriptor}) {
-            return {
-                items: items.sort((a, b) => {
-                    //@ts-ignore
-                    const first = a[sortDescriptor.column];
-                    //@ts-ignore
-                    const second = b[sortDescriptor.column];
-                    let cmp = (parseInt(first) || first) < (parseInt(second) || second) ? -1 : 1;
-            
-                    if (sortDescriptor.direction === "descending") {
-                        cmp *= -1;
-                    }
-            
-                    return cmp;
-                }),
-            };
-        }
-    })
-
+    const [filter, setFilter] = useState('ВСЕ')
 
     return (
         <>
-            <Table aria-label="Example table with dynamic content" sortDescriptor={list.sortDescriptor} onSortChange={list.sort}>
-                <TableHeader columns={columns}>
-                    {(column) => <TableColumn allowsSorting key={column.key}>{column.label}</TableColumn>}
-                </TableHeader>
-                <TableBody items={list.items}>
-                    {(item) => (
-                    <TableRow key={item.key}>   
-                        {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-                    </TableRow>
-                    )}
-                </TableBody>
-            </Table>
-            <OrderDishTable dishes={selectItem.dishes} isOpen={info.isOpen} onOpenChange={info.onOpenChange}/>
+            <div className='flex justify-between'>
+                <Select onChange={e => setFilter(e.target.value)} label='Статус'>
+                    <SelectItem key='ВСЕ'>ВСЕ</SelectItem>
+                    <SelectItem key='Готовится'>Готовится</SelectItem>
+                    <SelectItem key='Готов'>Готов</SelectItem>
+                    <SelectItem key='Доставлен'>Доставлен</SelectItem>
+                </Select>  
+            </div>
+            <ListLayout dataCount={data.length}>
+                <Table isHeaderSticky aria-label="Example table with dynamic content" >
+                    <TableHeader columns={columns}>
+                        {(column) => <TableColumn allowsSorting key={column.key}>{column.label}</TableColumn>}
+                    </TableHeader>
+                    <TableBody items={data.filter(el => filter === 'ВСЕ' ? el : el.status === filter)}>
+                        {(item) => (
+                        <TableRow key={item.key}>   
+                            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+                        </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
+                <OrderDishTable dishes={selectItem.dishes} isOpen={info.isOpen} onOpenChange={info.onOpenChange}/>
+            </ListLayout>
         </>
     )
 }

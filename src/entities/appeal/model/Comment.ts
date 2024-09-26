@@ -1,7 +1,7 @@
 interface Comment {
     id?: string
     body: string
-    photoIds?: string[]
+    photoIds: any[]
     senderRole?: string
 }
 

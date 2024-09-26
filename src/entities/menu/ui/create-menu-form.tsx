@@ -60,7 +60,7 @@ const CreateMenuForm: React.FC<Props> = props => {
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
             <FormErrorAlert msg={errors.type?.message}/>
             <Select {...register('type')} label='Тип меню'>
-                {types.map(el => <SelectItem key={el}>{el}</SelectItem>)}
+                {types.map(el => <SelectItem key={el}>{el === 'today' ? 'Сегодня' : 'Завтра'}</SelectItem>)}
             </Select>
             <Button type='submit' color='primary' variant='solid'>Создать</Button>
         </form>

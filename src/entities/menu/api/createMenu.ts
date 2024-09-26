@@ -9,7 +9,7 @@ export const createMenu = async (
 ) =>  {
     try {
         if(token) {
-            await MenuService.create(token, {type: data.type, title: data.type})
+            await MenuService.create(token, {type: data.type, title: data.type === 'today' ? 'Сегодня' : 'Завтра'})
             updateData(token)
             reset()
             onClose()

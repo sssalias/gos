@@ -1,5 +1,5 @@
 import { Comment } from 'src/entities/appeal/model'
-import { AppealsService } from 'src/shared/api'
+import { AppealsService, MediaService } from 'src/shared/api'
 
 export const send = async (
     id: string,
@@ -10,8 +10,14 @@ export const send = async (
 ) => {
     try {
         if (token) {
-            const {body} = comment
-            await AppealsService.sendComment(token, id, {body, photoIds: []})
+            if (comment.photoIds.length === 0) {
+                await AppealsService.sendComment(token, id, {...comment, photoIds: []})
+            } else {
+                let photoIds:string[] = []
+                await MediaService.uploadList(token, comment.photoIds)
+                    .then(res => photoIds = res.map(el => el.data.id))
+                await AppealsService.sendComment(token, id, {...comment, photoIds})
+            }
             reset()
             updateData(token)
         }

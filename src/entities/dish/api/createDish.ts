@@ -1,4 +1,4 @@
-import { DishServices } from 'src/shared/api'
+import { DishServices, MediaService } from 'src/shared/api'
 
 export const createDish = async (
     token: string | undefined,
@@ -10,7 +10,13 @@ export const createDish = async (
 ) => {
     try {
         if (token && categoryId) {
-            await DishServices.create(token, {...data, description: 'safas', photoId: null,}, categoryId)
+            try {
+                const res = await MediaService.upload(token, {file: data.photoId[0]})
+                await DishServices.create(token, {...data, description: 'safas', photoId: res.data.id}, categoryId)
+            } catch {
+                await DishServices.create(token, {...data, description: 'safas', photoId: null,}, categoryId)
+            }
+            // await DishServices.create(token, {...data, description: 'safas', photoId: null,}, categoryId)
             updateData(token, categoryId)
             reset()
             onClose()

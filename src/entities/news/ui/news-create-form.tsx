@@ -17,7 +17,7 @@ type Inputs = {
     title: string
     body: string
     forUserTypes: string
-    files: File[]
+    photoIds: File[]
 }
 
 const schema = yup
@@ -25,7 +25,7 @@ const schema = yup
         title: yup.string().required('Заголовок не должен быть пустым!'),
         body: yup.string().required('Содержание не должно быть пустым!'),
         forUserTypes: yup.string().required('Выберите категорию!'),
-        files: yup.mixed()
+        photoIds: yup.mixed()
     })
     .required()
 
@@ -60,7 +60,7 @@ const NewsCreateForm: React.FC<Props> = props => {
                 <SelectItem key='vip' value='vip'>vip</SelectItem>
                 <SelectItem key='super_vip' value='super_vip'>super_vip</SelectItem>
             </Select>
-            <Input {...register('files')} type='file' label='Фотографии' multiple/>
+            <Input {...register('photoIds')} type='file' label='Фотографии' multiple/>
             <Button type='submit'  color='primary' variant='solid'>Создать</Button>
         </form>
     )
