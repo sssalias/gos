@@ -1,4 +1,4 @@
-import MenuService from 'src/api/services/MenuService'
+import MenuService from 'src/shared/api/services/MenuService'
 import {create} from 'zustand'
 import {immer} from 'zustand/middleware/immer'
 

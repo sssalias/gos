@@ -1,4 +1,4 @@
-import NewsService from 'src/api/services/NewsService'
+import { NewsService } from 'src/shared/api'
 import {create} from 'zustand'
 import {immer} from 'zustand/middleware/immer'
 

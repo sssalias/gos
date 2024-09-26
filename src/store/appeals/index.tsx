@@ -1,4 +1,4 @@
-import AppealsService from 'src/api/services/AppealsService'
+import { AppealsService } from 'src/shared/api'
 import {create} from 'zustand'
 import {immer} from 'zustand/middleware/immer'
 
