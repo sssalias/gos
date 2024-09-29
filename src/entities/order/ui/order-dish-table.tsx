@@ -1,11 +1,16 @@
-import { Modal, ModalBody, ModalContent, ModalHeader, Image, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from '@nextui-org/react'
-import { useCallback } from 'react'
+import { Modal, ModalBody, ModalContent, ModalHeader, Image, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Button } from '@nextui-org/react'
+import { useKeycloak } from '@react-keycloak/web'
+import { useCallback, useState } from 'react'
+import { deleteDish } from 'src/entities/order/api'
 import { columns } from 'src/entities/order/libs'
+import { useOrdersStore } from 'src/store/orders'
 
 type Props = {
     dishes: any[]
     isOpen: boolean
-    onOpenChange
+    id: string,
+    item: any,
+    onOpenChange: () => void
 }
 const OrderDishTable: React.FC<Props> = props => {
 
@@ -37,12 +42,22 @@ const OrderDishTable: React.FC<Props> = props => {
         }
     }, [])
 
+    const [selectedIds, setSelectedIds] = useState<Selection>(new Set<string>())
+
+    const {keycloak} = useKeycloak()
+    const {updateData} = useOrdersStore()
+
     return (
         <Modal size='5xl' isOpen={props.isOpen} onOpenChange={props.onOpenChange}>
             <ModalContent>
                 <ModalHeader>Заказ </ModalHeader>
                 <ModalBody>
-                    <Table aria-label="Example table with dynamic content">
+                    <Table 
+                        aria-label="Examasfasfasple table with dynamic content"
+                        selectionMode='multiple'
+                        selectionBehavior='toggle'
+                        onSelectionChange={ (keys: Selection) => setSelectedIds(new Set(keys)) }
+                    >
                         <TableHeader columns={columns}>
                             {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
                         </TableHeader>
@@ -54,6 +69,14 @@ const OrderDishTable: React.FC<Props> = props => {
                             )}
                         </TableBody>
                     </Table>
+                    <div className='flex gap-4'>
+                        <Button 
+                            onClick={() => deleteDish(keycloak.token, props.item, props.id, selectedIds, updateData)}
+                            variant='solid' 
+                            color='danger'>
+                            Удалить 
+                        </Button>
+                    </div>
                 </ModalBody>
             </ModalContent>
         </Modal>

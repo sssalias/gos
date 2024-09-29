@@ -5,6 +5,7 @@ import { AppealItem } from 'src/entities/appeal'
 import { ListLayout } from 'src/layout/ui'
 import { AppealsService } from 'src/shared/api'
 import { useAppealsStore } from 'src/store/appeals'
+import { getUserData } from 'src/widgets/header/api'
 
 const AppealList: React.FC = () => {
 
@@ -25,6 +26,7 @@ const AppealList: React.FC = () => {
     }, [initialized])
 
     
+    const user = getUserData(keycloak.token)
 
     return (
         <ListLayout dataCount={data.length}>
@@ -45,6 +47,7 @@ const AppealList: React.FC = () => {
                 data
                     .filter(el => filters.status !== 'ВСЕ' ? el.status === filters.status : el)
                     .filter(el =>  el.ownerRoles.includes(filters.ownerRole))
+                    .filter(el => user?.role === 'Администратор' ? el : el.ownerRole.toLowerCase() !== 'vip' && el.ownerRole.toLowerCase() !== 'super_vip')
                     .reverse()
                     .map(el => <AppealItem comments={el.comments} ownerRole={el.ownerRoles[0]}  photoId={el.photoId} status={el.status} id={el.id} key={el.id} number={el.number} ownerEmail={el.ownerEmail} body={el.body}/>)
             }
