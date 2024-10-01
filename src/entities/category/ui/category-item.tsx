@@ -32,7 +32,7 @@ const CategoryItem: React.FC<Props> = props => {
                 </CardHeader>
                 <CardBody className='flex flex-col items-center justify-center gap-5 py-8 cursor-pointer hover:shadow-lg'>
                     <h2 className='font-semibold text-2xl'>{props.title}</h2>
-                    <Link to={props.id + '/' + props.title}>
+                    <Link to={`${props.id + '/' + props.title}`}>
                         <Button variant='bordered' color='primary'>Подробнее</Button>
                     </Link>
                 </CardBody>
