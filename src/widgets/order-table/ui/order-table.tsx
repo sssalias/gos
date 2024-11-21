@@ -10,6 +10,8 @@ import { FaInfo } from 'react-icons/fa6'
 import { OrderDishTable } from 'src/entities/order'
 import { ListLayout } from 'src/layout/ui'
 import { getUserData } from 'src/widgets/header/api'
+import { FaNewspaper } from 'react-icons/fa'
+import OrderNewsModal from 'src/entities/order/ui/order-news-modal'
 
 const OrderTable = () => {
 
@@ -21,10 +23,12 @@ const OrderTable = () => {
         wishes: '',
         submissionTime: '',
         paymentMethod: '',
-        status: ''
+        status: '',
+        userId: ''
     })
 
     const info = useDisclosure()
+    const news = useDisclosure()
 
     const {data, updateData} = useOrdersStore()
     const {keycloak} = useKeycloak()
@@ -56,7 +60,13 @@ const OrderTable = () => {
                         }} isIconOnly variant='solid' color='primary' size='sm'>
                             <i><FaInfo/></i>
                         </Button>
-                   </div> 
+                        <Button onPress={() => {
+                            setSelectedItem(row)
+                            news.onOpen()
+                        }} isIconOnly variant='solid' color='primary' size='sm'>
+                            <i><FaNewspaper/></i>
+                        </Button>
+                    </div> 
                 )
             default:
                 return cellValue
@@ -108,6 +118,7 @@ const OrderTable = () => {
                     </TableBody>
                 </Table>
                 <OrderDishTable item={selectItem} id={selectItem.id} dishes={selectItem.dishes} isOpen={info.isOpen} onOpenChange={info.onOpenChange}/>
+                <OrderNewsModal id={selectItem.userId} isOpen={news.isOpen} onOpenChange={news.onOpenChange}/>
             </ListLayout>
         </div>
     )

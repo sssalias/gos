@@ -55,7 +55,7 @@ const EditDishForm: React.FC<Props> = props => {
     const {categoryId} = useParams()
     const {updateData} = useDishesStore()
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => editDish(keycloak.token, {...data, id: props.data.id}, categoryId, updateData, props.onClose, reset)
+    const onSubmit: SubmitHandler<Inputs> = (data) => editDish(keycloak.token, {...data, id: props.data.id}, categoryId, props.data.photoId, updateData, props.onClose, reset)
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>

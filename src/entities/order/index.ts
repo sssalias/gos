@@ -1,5 +1,6 @@
-import { OrderDishTable } from 'src/entities/order/ui'
+import { OrderDishTable, OrderNewsItem } from 'src/entities/order/ui'
 
 export {
-    OrderDishTable
+    OrderDishTable,
+    OrderNewsItem
 }

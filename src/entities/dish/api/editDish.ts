@@ -4,6 +4,7 @@ export const editDish = async (
     token: string | undefined,
     data: any,
     categoryId: string | undefined,
+    oldPhotoId: string,
     updateData: (token:string, categoryId: string) => void,
     onClose: () => void,
     reset: () => void
@@ -12,9 +13,9 @@ export const editDish = async (
         if (token && categoryId) {
             try {
                 const res = await MediaService.upload(token, {file: data.photoId[0]})
-                await DishServices.update(token, {...data, description: 'safas', photoId: res.data.id}, categoryId)
+                await DishServices.update(token, {...data, description: 'safas', photoId: res.data.id, categoryId})
             } catch {
-                await DishServices.update(token, {...data, description: 'safas', photoId: null,}, categoryId)
+                await DishServices.update(token, {...data, description: 'safas', photoId: oldPhotoId, categoryId})
             }
             // await DishServices.create(token, {...data, description: 'safas', photoId: null,}, categoryId)
             updateData(token, categoryId)
